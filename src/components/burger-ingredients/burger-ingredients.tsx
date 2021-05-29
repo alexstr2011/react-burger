@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerListIngredient from '../burger-list-ingredient/burger-list-ingredient';
 import styles from './burger-ingredients.module.css';
@@ -54,5 +55,21 @@ function BurgerIngredients({data, ingredientTypes}) {
         </section>
     );
 }
+
+BurgerIngredients.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        type: PropTypes.oneOf(['bun', 'sauce', 'main']).isRequired
+    })).isRequired,
+    ingredientTypes: PropTypes.arrayOf(PropTypes.shape({
+        type: PropTypes.oneOf(['bun', 'sauce', 'main']).isRequired,
+        name: PropTypes.string.isRequired
+    })).isRequired
+}
+
+
 
 export default BurgerIngredients ;

@@ -1,6 +1,7 @@
 import React from 'react';
-import styles from './burger-list-ingredient.module.css';
+import PropTypes from 'prop-types';
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './burger-list-ingredient.module.css';
 
 // @ts-ignore
 function BurgerListIngredient({ingredient}) {
@@ -19,6 +20,14 @@ function BurgerListIngredient({ingredient}) {
             <Counter count={1} size="default" />
         </div>
     );
+}
+
+BurgerListIngredient.propTypes = {
+    ingredient: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired
+    }).isRequired
 }
 
 export default BurgerListIngredient;
