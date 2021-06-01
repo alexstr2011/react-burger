@@ -70,6 +70,4 @@ BurgerIngredients.propTypes = {
     })).isRequired
 }
 
-
-
 export default BurgerIngredients ;
