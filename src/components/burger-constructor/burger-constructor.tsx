@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {ConstructorElement,DragIcon,CurrencyIcon,Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 import styles from './burger-constructor.module.css';
 
 // @ts-ignore
@@ -24,6 +25,16 @@ function getConstructorElement(arr, ind, type) {
 
 // @ts-ignore
 function BurgerConstructor ({data}) {
+    const [visibleModal, setVisibleModal] = React.useState(false);
+
+    const openModal = () => {
+        setVisibleModal(true)
+    }
+
+    const closeModal = () => {
+        setVisibleModal(false)
+    }
+
     let firstElement, lastElement;
     if (data.length) {
         firstElement = getConstructorElement(data, 0, 'top');
@@ -51,11 +62,12 @@ function BurgerConstructor ({data}) {
                 <p className="text text_type_digits-medium mr-2">12345</p>
                 <CurrencyIcon type="primary" />
                 <div className="ml-10 mr-4">
-                    <Button type="primary" size="large">
+                    <Button onClick={openModal} type="primary" size="large">
                         Оформить заказ
                     </Button>
                 </div>
             </div>
+            {visibleModal && <ModalOverlay closeModal={closeModal} />}
         </section>
     );
 }
