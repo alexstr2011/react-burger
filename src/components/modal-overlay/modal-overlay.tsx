@@ -4,11 +4,11 @@ import Modal from '../modal/modal';
 import styles from './modal-overlay.module.css';
 
 // @ts-ignore
-function ModalOverlay({closeModal}) {
+function ModalOverlay({closeModal, children, title = ''}) {
     return ReactDOM.createPortal(
         (
             <div onClick={closeModal} className={styles.overlay}>
-                <Modal closeModal={closeModal} title={'Тест'}/>
+                <Modal closeModal={closeModal} component={children} title={title}/>
             </div>
         ),
         // @ts-ignore

@@ -3,7 +3,7 @@ import styles from './modal.module.css';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 // @ts-ignore
-function Modal({closeModal,title}) {
+function Modal({closeModal, component, title}) {
     // @ts-ignore
     const stopPropagation = (e) => {
         e.stopPropagation();
@@ -33,6 +33,7 @@ function Modal({closeModal,title}) {
                     <CloseIcon type="primary" />
                 </div>
             </header>
+            {component}
         </section>
     );
 }
