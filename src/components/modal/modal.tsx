@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import styles from './modal.module.css';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -36,6 +37,12 @@ function Modal({closeModal, component, title}) {
             {component}
         </section>
     );
+}
+
+Modal.propTypes = {
+    closeModal: PropTypes.func.isRequired,
+    component: PropTypes.element.isRequired,
+    title: PropTypes.string
 }
 
 export default Modal;

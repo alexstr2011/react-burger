@@ -3,6 +3,7 @@
     width: 272px;
     height: 208px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .image {

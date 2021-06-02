@@ -22,7 +22,7 @@ function BurgerIngredients({data, ingredientTypes}) {
                         .map(elementIngredient =>
                             <li key={elementIngredient._id}>
                                 <BurgerListIngredient
-                                    ingredient={elementIngredient}/>
+                                    data={elementIngredient}/>
                             </li>
                         )
                 }

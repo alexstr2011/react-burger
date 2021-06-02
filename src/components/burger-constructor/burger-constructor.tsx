@@ -69,7 +69,7 @@ function BurgerConstructor ({data}) {
                 </div>
             </div>
             {visibleModal && <ModalOverlay closeModal={closeModal}>
-                <OrderDetails/>
+                <OrderDetails />
             </ModalOverlay>}
         </section>
     );

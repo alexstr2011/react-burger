@@ -1,3 +1,5 @@
+export const orderNumber = '034536';
+
 export const ingredientTypes = [
     {
         type: 'bun',
