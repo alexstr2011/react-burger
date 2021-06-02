@@ -14,9 +14,7 @@ function BurgerListIngredient({data}) {
     }
 
     const closeModal = () => {
-        console.log(12345, visibleModal);
         setVisibleModal(false);
-        console.log(12345, visibleModal);
     }
 
     return (
