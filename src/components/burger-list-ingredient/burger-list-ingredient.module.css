@@ -1,0 +1,30 @@
+.ingredient {
+    position: relative;
+    width: 272px;
+    height: 208px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.image {
+    width: 240px;
+    height: 120px;
+    display: block;
+    margin: auto;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.name {
+    text-align: center;
+}
+
+.counter {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

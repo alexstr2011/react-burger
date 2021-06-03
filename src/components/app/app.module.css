@@ -1,0 +1,20 @@
+.app {
+    background-color: #131316;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info {
+    text-align: center;
+    font-size: 36px;
+}
+
+.error {
+    text-align: center;
+    font-size: 36px;
+    color: red;
+}

@@ -1,0 +1,25 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1C1C21;
+    height: 88px;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1240px;
+    width: 100%;
+}
+
+.flexContainer {
+    display: flex;
+    flex-basis: 33%;
+}
+
+.profile {
+    composes: flexContainer;
+    justify-content: flex-end;
+}
