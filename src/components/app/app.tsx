@@ -2,8 +2,8 @@ import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import styles from './app.module.css'
-
+import styles from './app.module.css';
+import { Context } from '../../context/context';
 import { ingredientTypes } from '../../utils/data';
 
 const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
@@ -51,7 +51,9 @@ function App() {
             {!loading && !error && !!data.length &&
             <main className={styles.main}>
                 <BurgerIngredients data={data} ingredientTypes={ingredientTypes}/>
-                <BurgerConstructor data={data}/>
+                <Context.Provider value={data}>
+                    <BurgerConstructor />
+                </Context.Provider>
             </main>
             }
         </div>

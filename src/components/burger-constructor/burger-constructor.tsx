@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {ConstructorElement,DragIcon,CurrencyIcon,Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import OrderDetails from '../order-details/order-details';
 import styles from './burger-constructor.module.css';
+import { Context } from '../../context/context';
 
 // @ts-ignore
 function getConstructorElement(arr, ind, type) {
@@ -24,14 +24,13 @@ function getConstructorElement(arr, ind, type) {
     );
 }
 
-// @ts-ignore
-function BurgerConstructor ({data}) {
+function BurgerConstructor () {
+    const data = React.useContext(Context);
     const [visibleModal, setVisibleModal] = React.useState(false);
 
     const openModal = () => {
         setVisibleModal(true)
     }
-
     const closeModal = () => {
         setVisibleModal(false)
     }
@@ -73,15 +72,6 @@ function BurgerConstructor ({data}) {
             </ModalOverlay>}
         </section>
     );
-}
-
-BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired
-    })).isRequired
 }
 
 export default BurgerConstructor;
