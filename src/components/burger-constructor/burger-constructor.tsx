@@ -38,12 +38,17 @@ function BurgerConstructor () {
         setVisibleModal(false);
     }
 
-    // @ts-ignore
-    const topBun = getConstructorElement(data.bun, 'top');
-    // @ts-ignore
-    const bottomBun = getConstructorElement(data.bun, 'bottom');
+    let topBun, bottomBun, orderValue = 0;
+    if (data.bun) {
+        topBun = getConstructorElement(data.bun, 'top');
+        bottomBun = getConstructorElement(data.bun, 'bottom');
+        // @ts-ignore
+        orderValue = data.bun.price * 2;
+    }
     // @ts-ignore
     const innerList = data.inners.map((element) => getConstructorElement(element));
+    // @ts-ignore
+    orderValue += data.inners.reduce((acc, element) => acc + element.price, 0)
 
     return (
         <section className={styles.constructor + ' ml-10 pt-15 pl-4'}>
@@ -55,7 +60,7 @@ function BurgerConstructor () {
                 {bottomBun}
             </section>
             <div className={styles.order + ' mt-10'}>
-                <p className="text text_type_digits-medium mr-2">12345</p>
+                <p className="text text_type_digits-medium mr-2">{orderValue}</p>
                 <CurrencyIcon type="primary" />
                 <div className="ml-10 mr-4">
                     <Button onClick={openModal} type="primary" size="large">
