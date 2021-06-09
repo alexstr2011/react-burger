@@ -8,10 +8,56 @@ import { ingredientTypes } from '../../utils/data';
 
 const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
+//actions
+const START_LOAD = 'START_LOAD';
+const LOAD_OK = 'LOAD_OK';
+const LOAD_ERR = 'LOAD_ERR';
+
+const initialState = {
+    data: [],
+    isLoading: false,
+    isError: false,
+    error: ''
+};
+
+// @ts-ignore
+function reducer(state, action) {
+    switch (action.type) {
+        case START_LOAD:
+            return {
+                ...state,
+                data: [],
+                isLoading: true,
+                isError: false
+            };
+        case LOAD_OK:
+            return {
+                ...state,
+                data: action.payload,
+                isLoading: false,
+                isError: false
+            };
+        case LOAD_ERR:
+            return {
+                ...state,
+                data: [],
+                isLoading: false,
+                isError: true,
+                error: action.payload
+            };
+        default:
+            return {
+                ...state,
+                data: [],
+                isLoading: false,
+                isError: true,
+                error: `Wrong type of action: ${action.type}`
+            };
+    }
+}
+
 function App() {
-    const [data, setData] = React.useState([]);
-    const [loading, setLoading] = React.useState(false);
-    const [error, setError] = React.useState(false);
+    const [state, dispatch] = React.useReducer(reducer, initialState);
 
     React.useEffect(() => {
         // @ts-ignore
@@ -24,34 +70,43 @@ function App() {
                 }
             })
                 .then((response) => {
-                    setData(response.data);
-                    setLoading(false);
+                    dispatch({
+                        type: LOAD_OK,
+                        payload: response.data
+                    });
                 })
                 .catch((error) => {
-                    console.log(error);
-                    setData([]);
-                    setError(true);
-                    setLoading(false);
+                    dispatch({
+                        type: LOAD_ERR,
+                        payload: 'Failed getting data from server: ' + error.message
+                    })
                 });
         };
 
-        setData([]);
-        setLoading(true);
-        setError(false);
+        dispatch({
+            type: START_LOAD
+        });
 
         getData(API_URL);
 
     }, []);
 
+    const burgerConstructorData = {
+        // @ts-ignore
+        bun: state.data.filter(item => item.type === 'bun')[0],
+        // @ts-ignore
+        inners: state.data.filter(item => item.type !== 'bun')
+    };
+
     return (
         <div className={styles.app}>
             <AppHeader/>
-            {loading && <p className={styles.info}>Loading...</p>}
-            {error && <p className={styles.error}>Failed getting data from server</p>}
-            {!loading && !error && !!data.length &&
+            {state.isLoading && <p className={styles.info}>Loading...</p>}
+            {state.isError && <p className={styles.error}>{state.error}</p>}
+            {!state.isLoading && !state.isError && !!state.data.length &&
             <main className={styles.main}>
-                <BurgerIngredients data={data} ingredientTypes={ingredientTypes}/>
-                <Context.Provider value={data}>
+                <BurgerIngredients data={state.data} ingredientTypes={ingredientTypes}/>
+                <Context.Provider value={burgerConstructorData}>
                     <BurgerConstructor />
                 </Context.Provider>
             </main>

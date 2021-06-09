@@ -6,9 +6,12 @@ import styles from './burger-constructor.module.css';
 import { Context } from '../../context/context';
 
 // @ts-ignore
-function getConstructorElement(arr, ind, type) {
-    const element = arr[ind];
+function getConstructorElement(element, type) {
     const isLocked = !!type;
+    let text = element.name;
+    if (!!type) {
+        text += (type === 'top') ? ' (верх)' : ' (низ)';
+    }
 
     return (
         <div className={styles.ingredient} key={element._id}>
@@ -16,7 +19,7 @@ function getConstructorElement(arr, ind, type) {
             <ConstructorElement
                 type={type}
                 isLocked={isLocked}
-                text={element.name}
+                text={text}
                 price={element.price}
                 thumbnail={element.image}
             />
@@ -29,34 +32,27 @@ function BurgerConstructor () {
     const [visibleModal, setVisibleModal] = React.useState(false);
 
     const openModal = () => {
-        setVisibleModal(true)
+        setVisibleModal(true);
     }
     const closeModal = () => {
-        setVisibleModal(false)
+        setVisibleModal(false);
     }
 
-    let firstElement, lastElement;
-    if (data.length) {
-        firstElement = getConstructorElement(data, 0, 'top');
-    }
-    if (data.length > 1) {
-        lastElement = getConstructorElement(data, data.length - 1, 'bottom');
-    }
-
-    const innerList = data
-        // @ts-ignore
-        .filter((element,ind,arr) => ind !== 0 && ind !== (arr.length - 1))
-        // @ts-ignore
-        .map((element, ind, arr) => getConstructorElement(arr, ind));
+    // @ts-ignore
+    const topBun = getConstructorElement(data.bun, 'top');
+    // @ts-ignore
+    const bottomBun = getConstructorElement(data.bun, 'bottom');
+    // @ts-ignore
+    const innerList = data.inners.map((element) => getConstructorElement(element));
 
     return (
         <section className={styles.constructor + ' ml-10 pt-15 pl-4'}>
             <section className={styles.list}>
-                {firstElement}
+                {topBun}
                 <div className={styles.innerList + ' scrollbar'}>
                     {innerList}
                 </div>
-                {lastElement}
+                {bottomBun}
             </section>
             <div className={styles.order + ' mt-10'}>
                 <p className="text text_type_digits-medium mr-2">12345</p>
