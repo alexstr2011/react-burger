@@ -4,9 +4,8 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import styles from './app.module.css';
 import { Context } from '../../context/context';
-import { ingredientTypes } from '../../utils/data';
-
-const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
+import { INGREDIENT_TYPES } from '../../utils/data';
+import { INGREDIENTS_URL } from '../../api/urls';
 
 //actions
 const START_LOAD = 'START_LOAD';
@@ -87,7 +86,7 @@ function App() {
             type: START_LOAD
         });
 
-        getData(API_URL);
+        getData(INGREDIENTS_URL);
 
     }, []);
 
@@ -105,7 +104,7 @@ function App() {
             {state.isError && <p className={styles.error}>{state.error}</p>}
             {!state.isLoading && !state.isError && !!state.data.length &&
             <main className={styles.main}>
-                <BurgerIngredients data={state.data} ingredientTypes={ingredientTypes}/>
+                <BurgerIngredients data={state.data} ingredientTypes={INGREDIENT_TYPES}/>
                 <Context.Provider value={burgerConstructorData}>
                     <BurgerConstructor />
                 </Context.Provider>

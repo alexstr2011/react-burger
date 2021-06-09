@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './order-details.module.css';
 import checkMark from '../../images/checkMark.png';
-import {orderNumber} from '../../utils/data';
 
 // @ts-ignore
-function OrderDetails() {
+function OrderDetails({orderNumber}) {
     return (
         <section className={styles.order}>
             <p className="text text_type_digits-large mt-8">{orderNumber}</p>
@@ -21,5 +21,9 @@ function OrderDetails() {
         </section>
     );
 }
+
+OrderDetails.propTypes = {
+    orderNumber: PropTypes.number.isRequired
+};
 
 export default OrderDetails;
