@@ -4,7 +4,7 @@ import styles from './modal.module.css';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 // @ts-ignore
-function Modal({closeModal, component, title}) {
+function Modal({closeModal, children, title}) {
     // @ts-ignore
     const stopPropagation = (e) => {
         e.stopPropagation();
@@ -34,14 +34,14 @@ function Modal({closeModal, component, title}) {
                     <CloseIcon type="primary" />
                 </div>
             </header>
-            {component}
+            {children}
         </section>
     );
 }
 
 Modal.propTypes = {
     closeModal: PropTypes.func.isRequired,
-    component: PropTypes.element.isRequired,
+    children: PropTypes.element.isRequired,
     title: PropTypes.string
 }
 

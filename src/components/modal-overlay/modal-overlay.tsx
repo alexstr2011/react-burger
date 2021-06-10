@@ -14,7 +14,9 @@ function ModalOverlay({closeModal, children, title = ''}) {
     return ReactDOM.createPortal(
         (
             <div onClick={closeModalStopPropagation} className={styles.overlay}>
-                <Modal closeModal={closeModal} component={children} title={title}/>
+                <Modal closeModal={closeModal} title={title}>
+                    {children}
+                </Modal>
             </div>
         ),
         // @ts-ignore
