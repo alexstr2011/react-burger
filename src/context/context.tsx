@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Context = React.createContext({
+export const IngredientsContext = React.createContext({
     bun: undefined,
     inners: []
 });

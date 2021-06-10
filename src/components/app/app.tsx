@@ -3,7 +3,7 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import styles from './app.module.css';
-import { Context } from '../../context/context';
+import { IngredientsContext } from '../../context/context';
 import { INGREDIENT_TYPES } from '../../utils/data';
 import { INGREDIENTS_URL } from '../../api/urls';
 
@@ -105,9 +105,9 @@ function App() {
             {!state.isLoading && !state.isError && !!state.data.length &&
             <main className={styles.main}>
                 <BurgerIngredients data={state.data} ingredientTypes={INGREDIENT_TYPES}/>
-                <Context.Provider value={burgerConstructorData}>
+                <IngredientsContext.Provider value={burgerConstructorData}>
                     <BurgerConstructor />
-                </Context.Provider>
+                </IngredientsContext.Provider>
             </main>
             }
         </div>

@@ -3,7 +3,7 @@ import {ConstructorElement,DragIcon,CurrencyIcon,Button} from '@ya.praktikum/rea
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import OrderDetails from '../order-details/order-details';
 import styles from './burger-constructor.module.css';
-import { Context } from '../../context/context';
+import { IngredientsContext } from '../../context/context';
 import { CREATE_ORDER_URL } from '../../api/urls';
 
 // @ts-ignore
@@ -31,7 +31,7 @@ function getConstructorElement(element, type) {
 }
 
 function BurgerConstructor () {
-    const data = React.useContext(Context);
+    const data = React.useContext(IngredientsContext);
     const [visibleModal, setVisibleModal] = React.useState(false);
     const [orderNumber, setOrderNumber] = React.useState(null);
 
