@@ -31,7 +31,7 @@ function getConstructorElement(element, type) {
 }
 
 function BurgerConstructor () {
-    const data = React.useContext(IngredientsContext);
+    const data = React.useContext(IngredientsContext).burgerConstructorData;
     const [visibleModal, setVisibleModal] = React.useState(false);
     const [orderNumber, setOrderNumber] = React.useState(null);
 

@@ -98,19 +98,24 @@ function App() {
     };
 
     return (
-        <div className={styles.app}>
-            <AppHeader/>
-            {state.isLoading && <p className={styles.info}>Loading...</p>}
-            {state.isError && <p className={styles.error}>{state.error}</p>}
-            {!state.isLoading && !state.isError && !!state.data.length &&
-            <main className={styles.main}>
-                <BurgerIngredients data={state.data} ingredientTypes={INGREDIENT_TYPES}/>
-                <IngredientsContext.Provider value={burgerConstructorData}>
-                    <BurgerConstructor />
-                </IngredientsContext.Provider>
-            </main>
-            }
-        </div>
+        <IngredientsContext.Provider value={{
+            burgerIngredientsData: state.data,
+            // @ts-ignore
+            ingredientTypes: INGREDIENT_TYPES,
+            burgerConstructorData
+        }}>
+            <div className={styles.app}>
+                <AppHeader/>
+                {state.isLoading && <p className={styles.info}>Loading...</p>}
+                {state.isError && <p className={styles.error}>{state.error}</p>}
+                {!state.isLoading && !state.isError && !!state.data.length &&
+                <main className={styles.main}>
+                    <BurgerIngredients/>
+                    <BurgerConstructor/>
+                </main>
+                }
+            </div>
+        </IngredientsContext.Provider>
     );
 }
 

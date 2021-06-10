@@ -1,6 +1,10 @@
 import React from 'react';
 
 export const IngredientsContext = React.createContext({
-    bun: undefined,
-    inners: []
+    burgerIngredientsData: [],
+    ingredientTypes: [],
+    burgerConstructorData: {
+        bun: undefined,
+        inners: []
+    }
 });
