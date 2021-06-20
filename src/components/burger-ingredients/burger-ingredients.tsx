@@ -1,12 +1,30 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
+import { MODAL_INGREDIENT } from '../../services/actions/actions';
 import BurgerListIngredient from '../burger-list-ingredient/burger-list-ingredient';
 import styles from './burger-ingredients.module.css';
-import { IngredientsContext } from '../../context/context';
+import ModalOverlay from "../modal-overlay/modal-overlay";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
-// @ts-ignore
 function BurgerIngredients() {
-    const { burgerIngredientsData: data, ingredientTypes } = React.useContext(IngredientsContext);
+    // @ts-ignore
+    const {data, ingredientTypes, modalIngredient} = useSelector(store => ({
+        // @ts-ignore
+        data: store.burgerIngredients.data,
+        // @ts-ignore
+        ingredientTypes: store.ingredientTypes,
+        // @ts-ignore
+        modalIngredient: store.modalIngredient.ingredient
+    }));
+
+    const dispatch = useDispatch();
+    const closeModal = () => {
+        dispatch({
+            type: MODAL_INGREDIENT.UNSET
+        });
+    }
+
     // @ts-ignore
     const [currentType, setCurrentType] = React.useState(ingredientTypes[0].type);
 
@@ -15,15 +33,14 @@ function BurgerIngredients() {
         // @ts-ignore
         <li key={elementType.type}>
             <p className="text text_type_main-medium">
-                {/*@ts-ignore*/}
                 {elementType.name}
             </p>
             <ul className={styles.ingredientsOfType}>
                 {
                     // @ts-ignore
                     data.filter(elementIngredient => elementIngredient.type === elementType.type)
+                        // @ts-ignore
                         .map(elementIngredient =>
-                            // @ts-ignore
                             <li key={elementIngredient._id}>
                                 <BurgerListIngredient
                                     data={elementIngredient}/>
@@ -41,12 +58,11 @@ function BurgerIngredients() {
             </p>
             <nav className={styles.menu + ' mt-5 mb-10'}>
                 {
+                    // @ts-ignore
                     ingredientTypes.map(element =>
-                        // @ts-ignore
                         <Tab value={element.type} active={currentType === element.type} key={element.type}
                              onClick={setCurrentType}>
                             {
-                                // @ts-ignore
                                 element.name
                             }
                         </Tab>
@@ -56,7 +72,9 @@ function BurgerIngredients() {
             <ul className={styles.ingredientsList + ' scrollbar'}>
                 { ingredientsList }
             </ul>
-
+            {!!modalIngredient && <ModalOverlay closeModal={closeModal} title='Детали ингридиента' >
+                <IngredientDetails data={modalIngredient} />
+            </ModalOverlay>}
         </section>
     );
 }

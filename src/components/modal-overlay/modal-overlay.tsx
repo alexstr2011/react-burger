@@ -6,14 +6,9 @@ import styles from './modal-overlay.module.css';
 
 // @ts-ignore
 function ModalOverlay({closeModal, children, title = ''}) {
-    // @ts-ignore
-    const closeModalStopPropagation = (e) => {
-        e.stopPropagation();
-        closeModal();
-    }
     return ReactDOM.createPortal(
         (
-            <div onClick={closeModalStopPropagation} className={styles.overlay}>
+            <div onClick={closeModal} className={styles.overlay}>
                 <Modal closeModal={closeModal} title={title}>
                     {children}
                 </Modal>

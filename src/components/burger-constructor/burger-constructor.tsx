@@ -1,19 +1,21 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {ConstructorElement,DragIcon,CurrencyIcon,Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import { ORDER_NUMBER, orderNumberLoad } from '../../services/actions/actions';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import OrderDetails from '../order-details/order-details';
 import styles from './burger-constructor.module.css';
-import { IngredientsContext } from '../../context/context';
-import { CREATE_ORDER_URL } from '../../api/urls';
 
 // @ts-ignore
-function getConstructorElement(element, type) {
+function getConstructorElement(element, type, index=0) {
     const isLocked = !!type;
     let text = element.name;
     let key = element._id;
     if (!!type) {
         text += (type === 'top') ? ' (верх)' : ' (низ)';
         key += type;
+    } else {
+        key += index;
     }
 
     return (
@@ -31,15 +33,20 @@ function getConstructorElement(element, type) {
 }
 
 function BurgerConstructor () {
-    const data = React.useContext(IngredientsContext).burgerConstructorData;
-    const [visibleModal, setVisibleModal] = React.useState(false);
-    const [orderNumber, setOrderNumber] = React.useState(null);
+    // @ts-ignore
+    const {data, orderNumber} = useSelector(store => ({
+        // @ts-ignore
+        data: store.burgerConstructor,
+        // @ts-ignore
+        orderNumber: store.orderNumber.number,
+    }));
 
-    const openModal = () => {
-        setVisibleModal(true);
-    }
+    const dispatch = useDispatch();
+
     const closeModal = () => {
-        setVisibleModal(false);
+        dispatch({
+            type: ORDER_NUMBER.DELETE
+        });
     }
 
     const createOrderHandler = () => {
@@ -52,29 +59,7 @@ function BurgerConstructor () {
             ingredients.push(data.bun._id);
         }
 
-        fetch(CREATE_ORDER_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({'ingredients': ingredients})
-        }).then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Failed getting data from server');
-            }
-        })
-            .then((response) => {
-                if (!response.success) {
-                    throw new Error('Failed creating order');
-                }
-                setOrderNumber(response.order.number);
-                openModal();
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
+        dispatch(orderNumberLoad(ingredients));
     }
 
     let topBun, bottomBun, orderValue = 0;
@@ -85,7 +70,7 @@ function BurgerConstructor () {
         orderValue = data.bun.price * 2;
     }
     // @ts-ignore
-    const innerList = data.inners.map((element) => getConstructorElement(element));
+    const innerList = data.inners.map((element, index) => getConstructorElement(element,index));
     // @ts-ignore
     orderValue += data.inners.reduce((acc, element) => acc + element.price, 0)
 
@@ -107,7 +92,7 @@ function BurgerConstructor () {
                     </Button>
                 </div>
             </div>
-            {visibleModal && <ModalOverlay closeModal={closeModal}>
+            {!!orderNumber && <ModalOverlay closeModal={closeModal}>
                 {/* @ts-ignore*/}
                 <OrderDetails orderNumber={orderNumber}/>
             </ModalOverlay>}
