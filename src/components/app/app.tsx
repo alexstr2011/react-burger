@@ -17,13 +17,13 @@ function App() {
         dispatch(burgerIngredientsLoad());
     }, [dispatch]);
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // @ts-ignore
-    data.filter((item,index) => index%2 !== 0).forEach(item => dispatch({
-        type: BURGER_CONSTRUCTOR.ADD,
-        ingredient: item
-    }));
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    if (data.length) {
+        dispatch({
+            type: BURGER_CONSTRUCTOR.ADD,
+            // @ts-ignore
+            ingredient: data.filter(item => item.type === 'bun')[0]
+        });
+    }
 
     return (
         <div className={styles.app}>

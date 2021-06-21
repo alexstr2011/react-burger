@@ -56,6 +56,22 @@ function BurgerIngredients() {
         </li>
     );
 
+    // @ts-ignore
+    const clickHandler = (type) => {
+        setCurrentType(type);
+        // @ts-ignore
+        const index = ingredientTypes.findIndex(ingredientType => ingredientType.type === type);
+        if (index !== -1) {
+            // @ts-ignore
+            const element = headersRef.current[index].current;
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
+
     const scrollHandler = () => {
         // @ts-ignore
         const menuTop = menuRef.current.getBoundingClientRect().top;
@@ -83,7 +99,7 @@ function BurgerIngredients() {
                     // @ts-ignore
                     ingredientTypes.map(element =>
                         <Tab value={element.type} active={currentType === element.type} key={element.type}
-                             onClick={setCurrentType}>
+                             onClick={clickHandler}>
                             {
                                 element.name
                             }
