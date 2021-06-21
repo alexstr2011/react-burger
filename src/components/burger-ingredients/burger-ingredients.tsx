@@ -25,14 +25,19 @@ function BurgerIngredients() {
         });
     }
 
+    const menuRef = React.useRef(null);
+    const headersRef = React.useRef([]);
+    // @ts-ignore
+    headersRef.current = ingredientTypes.map((_, index) => headersRef.current[index] ?? React.createRef());
+
     // @ts-ignore
     const [currentType, setCurrentType] = React.useState(ingredientTypes[0].type);
 
     // @ts-ignore
-    const ingredientsList = ingredientTypes.map(elementType =>
+    const ingredientsList = ingredientTypes.map((elementType, index) =>
         // @ts-ignore
         <li key={elementType.type}>
-            <p className="text text_type_main-medium">
+            <p  ref={headersRef.current[index]} className="text text_type_main-medium">
                 {elementType.name}
             </p>
             <ul className={styles.ingredientsOfType}>
@@ -51,12 +56,29 @@ function BurgerIngredients() {
         </li>
     );
 
+    const scrollHandler = () => {
+        // @ts-ignore
+        const menuTop = menuRef.current.getBoundingClientRect().top;
+
+        // @ts-ignore
+        const selectedType = ingredientTypes.map((ingredientType, index) => ({
+            type: ingredientType.type,
+            // @ts-ignore
+            distance: Math.abs(menuTop - headersRef.current[index].current.getBoundingClientRect().top)
+        // @ts-ignore
+        })).sort((a, b) => a.distance - b.distance)[0].type;
+
+        if (currentType !== selectedType) {
+            setCurrentType(selectedType);
+        }
+    };
+
     return (
         <section>
             <p className="text text_type_main-large">
                 Соберите бургер
             </p>
-            <nav className={styles.menu + ' mt-5 mb-10'}>
+            <nav ref={menuRef} className={styles.menu + ' mt-5 mb-10'}>
                 {
                     // @ts-ignore
                     ingredientTypes.map(element =>
@@ -69,7 +91,7 @@ function BurgerIngredients() {
                     )
                 }
             </nav>
-            <ul className={styles.ingredientsList + ' scrollbar'}>
+            <ul onScroll={scrollHandler} className={styles.ingredientsList + ' scrollbar'}>
                 { ingredientsList }
             </ul>
             {!!modalIngredient && <ModalOverlay closeModal={closeModal} title='Детали ингридиента' >

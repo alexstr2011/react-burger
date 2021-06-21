@@ -7,15 +7,13 @@ import OrderDetails from '../order-details/order-details';
 import styles from './burger-constructor.module.css';
 
 // @ts-ignore
-function getConstructorElement(element, type, index=0) {
+function getConstructorElement(element, type) {
     const isLocked = !!type;
     let text = element.name;
-    let key = element._id;
+    let key = element.key;
     if (!!type) {
         text += (type === 'top') ? ' (верх)' : ' (низ)';
         key += type;
-    } else {
-        key += index;
     }
 
     return (
@@ -70,7 +68,7 @@ function BurgerConstructor () {
         orderValue = data.bun.price * 2;
     }
     // @ts-ignore
-    const innerList = data.inners.map((element, index) => getConstructorElement(element,index));
+    const innerList = data.inners.map((element, index) => getConstructorElement(element));
     // @ts-ignore
     orderValue += data.inners.reduce((acc, element) => acc + element.price, 0)
 

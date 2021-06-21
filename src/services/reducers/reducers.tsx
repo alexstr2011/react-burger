@@ -49,10 +49,12 @@ const burgerConstructorInitialState = {
 const burgerConstructor = (state = burgerConstructorInitialState, action) => {
     switch(action.type) {
         case BURGER_CONSTRUCTOR.ADD: {
+            const key = action.ingredient._id + Math.floor(Math.random() * 10000);
+            const newIngredient = { ...action.ingredient, key }
             if (action.ingredient.type === 'bun') {
-                return { ...state, bun: action.ingredient }
+                return { ...state, bun: newIngredient }
             } else {
-                return { ...state, inners: [...state.inners, action.ingredient]}
+                return { ...state, inners: [...state.inners, newIngredient]}
             }
         }
         case BURGER_CONSTRUCTOR.REMOVE:
