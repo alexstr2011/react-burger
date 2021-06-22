@@ -66,6 +66,17 @@ const burgerConstructor = (state = burgerConstructorInitialState, action) => {
                     inners: [...state.inners.slice(0, action.index), ...state.inners.slice(action.index + 1)]
                 };
             }
+        case BURGER_CONSTRUCTOR.MOVE: {
+            const indexTo = action.indexTo > action.indexFrom ? action.indexTo - 1 : action.indexTo;
+            // @ts-ignore
+            const newInners = state.inners.filter((_,index) => index !== action.indexFrom);
+            return {
+                ...state,
+                inners: [...newInners.slice(0, indexTo),
+                    state.inners[action.indexFrom],
+                    ...newInners.slice(indexTo)]
+            };
+        }
         default:
             return state;
     }

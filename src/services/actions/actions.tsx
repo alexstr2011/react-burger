@@ -37,7 +37,8 @@ export function burgerIngredientsLoad() {
 
 export const BURGER_CONSTRUCTOR = {
     ADD: 'BURGER_CONSTRUCTOR/ADD',
-    REMOVE: 'BURGER_CONSTRUCTOR/REMOVE'
+    REMOVE: 'BURGER_CONSTRUCTOR/REMOVE',
+    MOVE: 'BURGER_CONSTRUCTOR/MOVE'
 }
 
 export const MODAL_INGREDIENT = {
