@@ -9,14 +9,36 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 
 function BurgerIngredients() {
     // @ts-ignore
-    const {data, ingredientTypes, modalIngredient} = useSelector(store => ({
+    const {data, ingredientTypes, modalIngredient, burgerConstructor} = useSelector(store => ({
         // @ts-ignore
         data: store.burgerIngredients.data,
         // @ts-ignore
         ingredientTypes: store.ingredientTypes,
         // @ts-ignore
-        modalIngredient: store.modalIngredient.ingredient
+        modalIngredient: store.modalIngredient.ingredient,
+        // @ts-ignore
+        burgerConstructor: store.burgerConstructor
     }));
+
+    const ingredientsAmount = React.useMemo(() => {
+        const result = {};
+        if (burgerConstructor.bun) {
+            // @ts-ignore
+            result[burgerConstructor.bun._id] = 2;
+        }
+        // @ts-ignore
+        burgerConstructor.inners.forEach(ingredient => {
+            // @ts-ignore
+            if (result[ingredient._id]) {
+                // @ts-ignore
+                result[ingredient._id]++;
+            } else {
+                // @ts-ignore
+                result[ingredient._id] = 1;
+            }
+        });
+        return result;
+    }, [burgerConstructor]);
 
     const dispatch = useDispatch();
     const closeModal = () => {
@@ -32,29 +54,6 @@ function BurgerIngredients() {
 
     // @ts-ignore
     const [currentType, setCurrentType] = React.useState(ingredientTypes[0].type);
-
-    // @ts-ignore
-    const ingredientsList = ingredientTypes.map((elementType, index) =>
-        // @ts-ignore
-        <li key={elementType.type}>
-            <p  ref={headersRef.current[index]} className="text text_type_main-medium">
-                {elementType.name}
-            </p>
-            <ul className={styles.ingredientsOfType}>
-                {
-                    // @ts-ignore
-                    data.filter(elementIngredient => elementIngredient.type === elementType.type)
-                        // @ts-ignore
-                        .map(elementIngredient =>
-                            <li key={elementIngredient._id}>
-                                <BurgerListIngredient
-                                    data={elementIngredient}/>
-                            </li>
-                        )
-                }
-            </ul>
-        </li>
-    );
 
     // @ts-ignore
     const clickHandler = (type) => {
@@ -88,6 +87,32 @@ function BurgerIngredients() {
             setCurrentType(selectedType);
         }
     };
+
+    // @ts-ignore
+    const ingredientsList = ingredientTypes.map((elementType, index) =>
+        // @ts-ignore
+        <li key={elementType.type}>
+            <p  ref={headersRef.current[index]} className="text text_type_main-medium">
+                {elementType.name}
+            </p>
+            <ul className={styles.ingredientsOfType}>
+                {
+                    // @ts-ignore
+                    data.filter(elementIngredient => elementIngredient.type === elementType.type)
+                        // @ts-ignore
+                        .map(elementIngredient =>
+                            <li key={elementIngredient._id}>
+                                <BurgerListIngredient
+                                    data={elementIngredient}
+                                    // @ts-ignore
+                                    ingredientAmount={ingredientsAmount[elementIngredient._id]}
+                                />
+                            </li>
+                        )
+                }
+            </ul>
+        </li>
+    );
 
     return (
         <section>

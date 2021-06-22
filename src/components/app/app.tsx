@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -30,12 +32,14 @@ function App() {
             <AppHeader/>
             {isLoading && <p className={styles.info}>Loading...</p>}
             {isError && <p className={styles.error}>Failed getting data from server</p>}
-            {!isLoading && !isError && !!data.length &&
-            <main className={styles.main}>
-                <BurgerIngredients/>
-                <BurgerConstructor/>
-            </main>
-            }
+            <DndProvider backend={HTML5Backend}>
+                {!isLoading && !isError && !!data.length &&
+                <main className={styles.main}>
+                    <BurgerIngredients/>
+                    <BurgerConstructor/>
+                </main>
+                }
+            </DndProvider>
         </div>
     );
 }

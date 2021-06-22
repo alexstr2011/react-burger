@@ -19,6 +19,10 @@
     width: 584px;
 }
 
+.dropHovering {
+    border: 1px solid green;
+}
+
 .ingredient {
     display: flex;
     justify-content: flex-end;

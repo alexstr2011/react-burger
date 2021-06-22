@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from 'react-dnd';
 import {ConstructorElement,DragIcon,CurrencyIcon,Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import { ORDER_NUMBER, orderNumberLoad } from '../../services/actions/actions';
+import { BURGER_CONSTRUCTOR, ORDER_NUMBER, orderNumberLoad } from '../../services/actions/actions';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import OrderDetails from '../order-details/order-details';
 import styles from './burger-constructor.module.css';
 
 // @ts-ignore
-function getConstructorElement(element, type) {
+function getConstructorElement(element, type=undefined, closeHandler=undefined) {
     const isLocked = !!type;
     let text = element.name;
     let key = element.key;
@@ -25,6 +26,7 @@ function getConstructorElement(element, type) {
                 text={text}
                 price={element.price}
                 thumbnail={element.image}
+                handleClose={closeHandler}
             />
         </div>
     );
@@ -60,21 +62,52 @@ function BurgerConstructor () {
         dispatch(orderNumberLoad(ingredients));
     }
 
+    // @ts-ignore
+    const closeHandler = (ingredient, index) => {
+        dispatch({
+            type: BURGER_CONSTRUCTOR.REMOVE,
+            ingredient,
+            index
+        });
+    }
+
+    const [{isHover}, dropRef] = useDrop({
+        accept: 'ingredient',
+        drop(data) {
+            dispatch({
+                type: BURGER_CONSTRUCTOR.ADD,
+                ingredient: data
+            });
+        },
+        collect: monitor => ({
+            isHover: monitor.isOver(),
+        })
+    });
+
+    const filter = isHover ? 'brightness(1.5)' : 'none';
+
     let topBun, bottomBun, orderValue = 0;
     if (data.bun) {
+        // @ts-ignore
         topBun = getConstructorElement(data.bun, 'top');
+        // @ts-ignore
         bottomBun = getConstructorElement(data.bun, 'bottom');
         // @ts-ignore
         orderValue = data.bun.price * 2;
     }
     // @ts-ignore
-    const innerList = data.inners.map((element, index) => getConstructorElement(element));
+    const innerList = data.inners.map(
+        // @ts-ignore
+        (element, index) => getConstructorElement(element,undefined,
+            // @ts-ignore
+            closeHandler.bind(null, element, index))
+    );
     // @ts-ignore
     orderValue += data.inners.reduce((acc, element) => acc + element.price, 0)
 
     return (
         <section className={styles.constructor + ' ml-10 pt-15 pl-4'}>
-            <section className={styles.list}>
+            <section ref={dropRef} className={styles.list} style={{filter}} >
                 {topBun}
                 <div className={styles.innerList + ' scrollbar'}>
                     {innerList}
