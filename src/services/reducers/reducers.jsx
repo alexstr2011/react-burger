@@ -16,7 +16,7 @@ const ingredientTypesInitialState = [
     }
 ];
 
-const ingredientTypes = (state = ingredientTypesInitialState) => {
+const ingredientTypesReducer = (state = ingredientTypesInitialState) => {
     return state;
 };
 
@@ -26,7 +26,7 @@ const burgerIngredientsInitialState = {
     isError: false
 };
 
-const burgerIngredients = (state = burgerIngredientsInitialState, action) => {
+const burgerIngredientsReducer = (state = burgerIngredientsInitialState, action) => {
     switch(action.type) {
         case BURGER_INGREDIENTS.LOAD:
             return {...state, data: [], isLoading: true, isError: false}
@@ -44,7 +44,7 @@ const burgerConstructorInitialState = {
     inners: []
 };
 
-const burgerConstructor = (state = burgerConstructorInitialState, action) => {
+const burgerConstructorReducer = (state = burgerConstructorInitialState, action) => {
     switch(action.type) {
         case BURGER_CONSTRUCTOR.ADD: {
             const key = action.ingredient._id + action.localId;
@@ -85,7 +85,7 @@ const modalIngredientInitialState = {
     ingredient: null
 };
 
-const modalIngredient = (state = modalIngredientInitialState, action) => {
+const modalIngredientReducer = (state = modalIngredientInitialState, action) => {
     switch (action.type) {
         case MODAL_INGREDIENT.SET:
             return {...state, ingredient: action.data};
@@ -102,7 +102,7 @@ const orderNumberInitialState = {
     isError: false
 };
 
-const orderNumber = (state = orderNumberInitialState, action) => {
+const orderNumberReducer = (state = orderNumberInitialState, action) => {
     switch(action.type) {
         case ORDER_NUMBER.LOAD:
             return {...state, number: null, isLoading: true, isError: false}
@@ -118,9 +118,9 @@ const orderNumber = (state = orderNumberInitialState, action) => {
 }
 
 export const rootReducer = combineReducers({
-    ingredientTypes,
-    burgerIngredients,
-    burgerConstructor,
-    modalIngredient,
-    orderNumber
+    ingredientTypesReducer,
+    burgerIngredientsReducer,
+    burgerConstructorReducer,
+    modalIngredientReducer,
+    orderNumberReducer
 });

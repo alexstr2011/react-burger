@@ -9,7 +9,7 @@ import styles from './app.module.css';
 import { burgerIngredientsLoad } from '../../services/actions/actions';
 
 function App() {
-    const { isLoading, isError, data } = useSelector(store => store.burgerIngredients);
+    const { isLoading, isError, data } = useSelector(store => store.burgerIngredientsReducer);
 
     const dispatch = useDispatch();
 

@@ -9,10 +9,10 @@ import styles from './burger-ingredients.module.css';
 
 function BurgerIngredients() {
     const {data, ingredientTypes, modalIngredient, burgerConstructor} = useSelector(store => ({
-        data: store.burgerIngredients.data,
-        ingredientTypes: store.ingredientTypes,
-        modalIngredient: store.modalIngredient.ingredient,
-        burgerConstructor: store.burgerConstructor
+        data: store.burgerIngredientsReducer.data,
+        ingredientTypes: store.ingredientTypesReducer,
+        modalIngredient: store.modalIngredientReducer.ingredient,
+        burgerConstructor: store.burgerConstructorReducer
     }));
 
     const ingredientsAmount = React.useMemo(() => {

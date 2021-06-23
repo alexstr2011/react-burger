@@ -10,8 +10,8 @@ import styles from './burger-constructor.module.css';
 
 function BurgerConstructor () {
     const {data, orderNumber} = useSelector(store => ({
-        data: store.burgerConstructor,
-        orderNumber: store.orderNumber.number,
+        data: store.burgerConstructorReducer,
+        orderNumber: store.orderNumberReducer.number,
     }));
 
     const dispatch = useDispatch();
