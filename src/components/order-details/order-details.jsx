@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styles from './order-details.module.css';
 import checkMark from '../../images/checkMark.png';
 
-// @ts-ignore
 function OrderDetails({orderNumber}) {
     return (
         <section className={styles.order}>

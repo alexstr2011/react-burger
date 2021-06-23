@@ -9,11 +9,8 @@ import OrderDetails from '../order-details/order-details';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor () {
-    // @ts-ignore
     const {data, orderNumber} = useSelector(store => ({
-        // @ts-ignore
         data: store.burgerConstructor,
-        // @ts-ignore
         orderNumber: store.orderNumber.number,
     }));
 
@@ -26,12 +23,9 @@ function BurgerConstructor () {
     }
 
     const createOrderHandler = () => {
-        // @ts-ignore
         const ingredients = data.inners.map(element => element._id);
         if (data.bun) {
-            // @ts-ignore
             ingredients.push(data.bun._id);
-            // @ts-ignore
             ingredients.push(data.bun._id);
         }
 
@@ -43,7 +37,8 @@ function BurgerConstructor () {
         drop(data) {
             dispatch({
                 type: BURGER_CONSTRUCTOR.ADD,
-                ingredient: data
+                ingredient: data,
+                localId: Math.floor(Math.random() * 10000)
             });
         },
         collect: monitor => ({
@@ -55,20 +50,14 @@ function BurgerConstructor () {
 
     let topBun, bottomBun, orderValue = 0;
     if (data.bun) {
-        // @ts-ignore
         topBun = <BurgerConstructorElement element={data.bun} type='top' />;
-        // @ts-ignore
         bottomBun = <BurgerConstructorElement element={data.bun} type='bottom' />;
-        // @ts-ignore
         orderValue = data.bun.price * 2;
     }
-    // @ts-ignore
     const innerList = data.inners.map(
-        // @ts-ignore
         (element, index) => <BurgerConstructorElement key={element.key}  element={element} index={index}/>
     );
 
-    // @ts-ignore
     orderValue += data.inners.reduce((acc, element) => acc + element.price, 0)
 
     return (
@@ -94,7 +83,6 @@ function BurgerConstructor () {
                 </div>
             </div>
             {!!orderNumber && <ModalOverlay closeModal={closeModal}>
-                {/* @ts-ignore*/}
                 <OrderDetails orderNumber={orderNumber}/>
             </ModalOverlay>}
         </section>

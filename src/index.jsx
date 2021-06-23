@@ -8,16 +8,11 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './services/reducers/reducers';
 
-declare global {
-    interface Window {
-        // @ts-ignore
-        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-    }
-}
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const composeEnhancers =
+    typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+        : compose;const enhancer = composeEnhancers(applyMiddleware(thunk));
 
-// @ts-ignore
 const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(

@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './ingredient-details.module.css';
 import PropTypes from "prop-types";
 
-// @ts-ignore
 function IngredientDetails({data}) {
     return (
         <section className={styles.ingredientDetails + ' mb-15'}>

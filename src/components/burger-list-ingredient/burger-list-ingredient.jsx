@@ -6,7 +6,6 @@ import { MODAL_INGREDIENT } from '../../services/actions/actions';
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-list-ingredient.module.css';
 
-// @ts-ignore
 function BurgerListIngredient({data, ingredientAmount}) {
     const dispatch = useDispatch();
     const setModalIngredient = () => {

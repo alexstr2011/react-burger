@@ -7,7 +7,6 @@ export const BURGER_INGREDIENTS = {
 }
 
 export function burgerIngredientsLoad() {
-    // @ts-ignore
     return function(dispatch) {
         dispatch({
             type: BURGER_INGREDIENTS.LOAD
@@ -53,9 +52,7 @@ export const ORDER_NUMBER = {
     DELETE: 'ORDER_NUMBER/DELETE'
 }
 
-// @ts-ignore
 export function orderNumberLoad(ingredients) {
-    // @ts-ignore
     return function(dispatch) {
         dispatch({
             type: ORDER_NUMBER.LOAD

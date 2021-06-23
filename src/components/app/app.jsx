@@ -9,7 +9,6 @@ import styles from './app.module.css';
 import { burgerIngredientsLoad } from '../../services/actions/actions';
 
 function App() {
-    // @ts-ignore
     const { isLoading, isError, data } = useSelector(store => store.burgerIngredients);
 
     const dispatch = useDispatch();

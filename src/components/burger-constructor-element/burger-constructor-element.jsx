@@ -6,7 +6,6 @@ import { BURGER_CONSTRUCTOR } from '../../services/actions/actions';
 import styles from '../burger-constructor-element/burger-constructor-element.module.css';
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-// @ts-ignore
 function BurgerConstructorElement({element, type, index}) {
     const dispatch = useDispatch();
 
@@ -31,17 +30,14 @@ function BurgerConstructorElement({element, type, index}) {
     const [{isHover}, dropRef] = useDrop({
         accept: 'sorting',
         drop(data, monitor) {
-            // @ts-ignore
             const dragIndex = data.index;
             const dropIndex = index;
             if (dragIndex === dropIndex) {
                 return;
             }
-            // @ts-ignore
             const dropBoundingRect = ref.current?.getBoundingClientRect();
             const dropMiddleY = (dropBoundingRect.bottom - dropBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset();
-            // @ts-ignore
             if (dropBoundingRect.top + dropMiddleY > clientOffset.y) {
                 dispatch({
                     type: BURGER_CONSTRUCTOR.MOVE,

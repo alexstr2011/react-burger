@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import Modal from '../modal/modal';
 import styles from './modal-overlay.module.css';
 
-// @ts-ignore
 function ModalOverlay({closeModal, children, title = ''}) {
     return ReactDOM.createPortal(
         (
@@ -14,7 +13,6 @@ function ModalOverlay({closeModal, children, title = ''}) {
                 </Modal>
             </div>
         ),
-        // @ts-ignore
         document.getElementById("react-modals")
     );
 }

@@ -3,15 +3,12 @@ import PropTypes from "prop-types";
 import styles from './modal.module.css';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
-// @ts-ignore
 function Modal({closeModal, children, title}) {
-    // @ts-ignore
     const stopPropagation = (e) => {
         e.stopPropagation();
     }
 
     React.useEffect(() => {
-        // @ts-ignore
         const closeModalEsc = (e) => {
             if (e.code === 'Escape') {
                 closeModal();

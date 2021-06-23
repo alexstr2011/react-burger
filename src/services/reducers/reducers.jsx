@@ -26,7 +26,6 @@ const burgerIngredientsInitialState = {
     isError: false
 };
 
-// @ts-ignore
 const burgerIngredients = (state = burgerIngredientsInitialState, action) => {
     switch(action.type) {
         case BURGER_INGREDIENTS.LOAD:
@@ -45,11 +44,10 @@ const burgerConstructorInitialState = {
     inners: []
 };
 
-// @ts-ignore
 const burgerConstructor = (state = burgerConstructorInitialState, action) => {
     switch(action.type) {
         case BURGER_CONSTRUCTOR.ADD: {
-            const key = action.ingredient._id + Math.floor(Math.random() * 10000);
+            const key = action.ingredient._id + action.localId;
             const newIngredient = { ...action.ingredient, key }
             if (action.ingredient.type === 'bun') {
                 return { ...state, bun: newIngredient }
@@ -68,7 +66,6 @@ const burgerConstructor = (state = burgerConstructorInitialState, action) => {
             }
         case BURGER_CONSTRUCTOR.MOVE: {
             const indexTo = action.indexTo > action.indexFrom ? action.indexTo - 1 : action.indexTo;
-            // @ts-ignore
             const newInners = state.inners.filter((_,index) => index !== action.indexFrom);
             return {
                 ...state,
@@ -86,7 +83,6 @@ const modalIngredientInitialState = {
     ingredient: null
 };
 
-// @ts-ignore
 const modalIngredient = (state = modalIngredientInitialState, action) => {
     switch (action.type) {
         case MODAL_INGREDIENT.SET:
@@ -104,7 +100,6 @@ const orderNumberInitialState = {
     isError: false
 };
 
-// @ts-ignore
 const orderNumber = (state = orderNumberInitialState, action) => {
     switch(action.type) {
         case ORDER_NUMBER.LOAD:
@@ -120,7 +115,6 @@ const orderNumber = (state = orderNumberInitialState, action) => {
     }
 }
 
-// @ts-ignore
 export const rootReducer = combineReducers({
     ingredientTypes,
     burgerIngredients,
