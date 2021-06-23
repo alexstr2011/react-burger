@@ -26,6 +26,10 @@ function BurgerConstructor () {
     }
 
     const createOrderHandler = () => {
+        if (!data.bun) {
+            return;
+        }
+        
         const ingredients = data.inners.map(element => element._id);
         if (data.bun) {
             ingredients.push(data.bun._id);
@@ -61,7 +65,7 @@ function BurgerConstructor () {
         (element, index) => <BurgerConstructorElement key={element.key}  element={element} index={index}/>
     );
 
-    orderValue += data.inners.reduce((acc, element) => acc + element.price, 0)
+    orderValue += data.inners.reduce((acc, element) => acc + element.price, 0);
 
     return (
         <section className={styles.constructor + ' ml-10 pt-15 pl-4'}>
@@ -80,7 +84,7 @@ function BurgerConstructor () {
                 <p className="text text_type_digits-medium mr-2">{orderValue}</p>
                 <CurrencyIcon type="primary" />
                 <div className="ml-10 mr-4">
-                    <Button onClick={createOrderHandler} type="primary" size="large">
+                    <Button onClick={createOrderHandler} type="primary" size="large" >
                         Оформить заказ
                     </Button>
                 </div>
