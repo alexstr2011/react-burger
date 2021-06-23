@@ -64,6 +64,8 @@ const burgerConstructor = (state = burgerConstructorInitialState, action) => {
                     inners: [...state.inners.slice(0, action.index), ...state.inners.slice(action.index + 1)]
                 };
             }
+        case BURGER_CONSTRUCTOR.REMOVE_ALL:
+            return burgerConstructorInitialState;
         case BURGER_CONSTRUCTOR.MOVE: {
             const indexTo = action.indexTo > action.indexFrom ? action.indexTo - 1 : action.indexTo;
             const newInners = state.inners.filter((_,index) => index !== action.indexFrom);

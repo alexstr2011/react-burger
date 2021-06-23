@@ -20,6 +20,9 @@ function BurgerConstructor () {
         dispatch({
             type: ORDER_NUMBER.DELETE
         });
+        dispatch({
+            type: BURGER_CONSTRUCTOR.REMOVE_ALL
+        });
     }
 
     const createOrderHandler = () => {
