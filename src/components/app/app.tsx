@@ -7,7 +7,6 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import styles from './app.module.css';
 import { burgerIngredientsLoad } from '../../services/actions/actions';
-import {BURGER_CONSTRUCTOR} from '../../services/actions/actions';
 
 function App() {
     // @ts-ignore
@@ -18,14 +17,6 @@ function App() {
     React.useEffect(() => {
         dispatch(burgerIngredientsLoad());
     }, [dispatch]);
-
-    if (data.length) {
-        dispatch({
-            type: BURGER_CONSTRUCTOR.ADD,
-            // @ts-ignore
-            ingredient: data.filter(item => item.type === 'bun')[0]
-        });
-    }
 
     return (
         <div className={styles.app}>

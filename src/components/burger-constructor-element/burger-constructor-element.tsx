@@ -20,7 +20,7 @@ function BurgerConstructorElement({element, type, index}) {
 
     const ref = React.useRef(null);
 
-    const [, dragRef] = useDrag({
+    const [{isDrag}, dragRef] = useDrag({
         type: 'sorting',
         item: {index},
         collect: monitor => ({
@@ -64,7 +64,8 @@ function BurgerConstructorElement({element, type, index}) {
     });
     dragRef(dropRef(ref));
 
-    const filter = isHover ? 'brightness(2)' : 'none';
+    const filter = isHover && !isDrag ? 'brightness(2)' : 'none';
+    const opacity = isDrag ? 0.1 : 1;
 
     const isLocked = !!type;
     let text = element.name;
@@ -73,7 +74,7 @@ function BurgerConstructorElement({element, type, index}) {
     }
 
     return (
-        <div { ... !!type ? '' : {ref} } className={styles.ingredient} style={{filter}} >
+        <div { ... !!type ? '' : {ref} } className={styles.ingredient} style={{filter, opacity}} >
             {!isLocked && <DragIcon type="primary" />}
             <ConstructorElement
                 type={type}

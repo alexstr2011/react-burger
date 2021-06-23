@@ -74,6 +74,10 @@ function BurgerConstructor () {
     return (
         <section className={styles.constructor + ' ml-10 pt-15 pl-4'}>
             <section ref={dropRef} className={styles.list} style={{filter}} >
+                {
+                    !data.bun && !data.inners.length
+                    && <p className={styles.info}>Drag the ingredients to make your order</p>
+                }
                 {topBun}
                 <div className={styles.innerList + ' scrollbar'}>
                     {innerList}
