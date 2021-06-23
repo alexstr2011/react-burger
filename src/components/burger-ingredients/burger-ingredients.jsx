@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import { MODAL_INGREDIENT } from '../../services/actions/actions';
 import BurgerListIngredient from '../burger-list-ingredient/burger-list-ingredient';
-import styles from './burger-ingredients.module.css';
-import ModalOverlay from "../modal-overlay/modal-overlay";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from '../modal/modal';
+import styles from './burger-ingredients.module.css';
 
 function BurgerIngredients() {
     const {data, ingredientTypes, modalIngredient, burgerConstructor} = useSelector(store => ({
@@ -110,9 +110,9 @@ function BurgerIngredients() {
             <ul onScroll={scrollHandler} className={styles.ingredientsList + ' scrollbar'}>
                 { ingredientsList }
             </ul>
-            {!!modalIngredient && <ModalOverlay closeModal={closeModal} title='Детали ингридиента' >
+            {!!modalIngredient && <Modal closeModal={closeModal} title='Детали ингридиента' >
                 <IngredientDetails data={modalIngredient} />
-            </ModalOverlay>}
+            </Modal>}
         </section>
     );
 }

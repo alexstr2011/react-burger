@@ -4,8 +4,8 @@ import { useDrop } from 'react-dnd';
 import {CurrencyIcon,Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import { BURGER_CONSTRUCTOR, ORDER_NUMBER, orderNumberLoad } from '../../services/actions/actions';
 import BurgerConstructorElement from '../burger-constructor-element/burger-constructor-element';
-import ModalOverlay from '../modal-overlay/modal-overlay';
 import OrderDetails from '../order-details/order-details';
+import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor () {
@@ -85,9 +85,9 @@ function BurgerConstructor () {
                     </Button>
                 </div>
             </div>
-            {!!orderNumber && <ModalOverlay closeModal={closeModal}>
+            {!!orderNumber && <Modal closeModal={closeModal}>
                 <OrderDetails orderNumber={orderNumber}/>
-            </ModalOverlay>}
+            </Modal>}
         </section>
     );
 }

@@ -1,16 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import Modal from '../modal/modal';
 import styles from './modal-overlay.module.css';
 
-function ModalOverlay({closeModal, children, title = ''}) {
+function ModalOverlay({closeModal}) {
     return ReactDOM.createPortal(
         (
             <div onClick={closeModal} className={styles.overlay}>
-                <Modal closeModal={closeModal} title={title}>
-                    {children}
-                </Modal>
             </div>
         ),
         document.getElementById("react-modals")
@@ -18,9 +14,7 @@ function ModalOverlay({closeModal, children, title = ''}) {
 }
 
 ModalOverlay.propTypes = {
-    closeModal: PropTypes.func.isRequired,
-    children: PropTypes.element.isRequired,
-    title: PropTypes.string
+    closeModal: PropTypes.func.isRequired
 }
 
 export default ModalOverlay;

@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import styles from './modal.module.css';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 
 function Modal({closeModal, children, title}) {
     const stopPropagation = (e) => {
@@ -21,18 +23,24 @@ function Modal({closeModal, children, title}) {
         };
     }, [closeModal]);
 
-    return (
-        <section className={styles.modal} onClick={stopPropagation}>
-            <header className={styles.header}>
-                <p className="text text_type_main-large mt-10 ml-10">
-                    {title}
-                </p>
-                <div onClick={closeModal} className={styles.closeButton + ' mt-15 mr-10'}>
-                    <CloseIcon type="primary" />
-                </div>
-            </header>
-            {children}
-        </section>
+    return ReactDOM.createPortal(
+        (
+            <>
+                <section className={styles.modal} onClick={stopPropagation}>
+                    <header className={styles.header}>
+                        <p className="text text_type_main-large mt-10 ml-10">
+                            {title}
+                        </p>
+                        <div onClick={closeModal} className={styles.closeButton + ' mt-15 mr-10'}>
+                            <CloseIcon type="primary"/>
+                        </div>
+                    </header>
+                    {children}
+                </section>
+                <ModalOverlay closeModal={closeModal}/>
+            </>
+        ),
+        document.getElementById("react-modals")
     );
 }
 
