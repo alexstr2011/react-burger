@@ -3,6 +3,16 @@
     box-sizing: border-box;
 }
 
+.info {
+    text-align: center;
+    font-size: 36px;
+    border: 1px dotted #1C1C21;
+    border-radius: 20px;
+    padding: 50px 20px;
+    background-color: #1C1C21;
+    box-sizing: border-box;
+}
+
 .list {
     display: flex;
     flex-direction: column;
@@ -19,20 +29,8 @@
     width: 584px;
 }
 
-.ingredient {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    column-gap: 13.5px;
-    width: 568px;
-}
-
-.ingredient > :global(.constructor-element) {
-    width: 100%;
-}
-
-.ingredient > :global(.constructor-element)  :global(.constructor-element__price) {
-    margin-left: auto;
+.dropHovering {
+    border: 1px solid green;
 }
 
 .order {

@@ -1,6 +1,4 @@
-export const orderNumber = '034536';
-
-export const ingredientTypes = [
+export const INGREDIENT_TYPES = [
     {
         type: 'bun',
         name: 'Булки'

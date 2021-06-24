@@ -1,0 +1,15 @@
+.ingredient {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 13.5px;
+    width: 568px;
+}
+
+.ingredient > :global(.constructor-element) {
+    width: 100%;
+}
+
+.ingredient > :global(.constructor-element)  :global(.constructor-element__price) {
+    margin-left: auto;
+}
