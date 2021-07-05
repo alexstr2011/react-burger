@@ -4,16 +4,33 @@ import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer
 import styles from './login.module.css';
 
 function LoginPage() {
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+
+    const changeEmailHandler = React.useCallback((e) => {
+        setEmail(e.target.value);
+    }, [setEmail]);
+
+    const changePasswordHandler = React.useCallback((e) => {
+        setPassword(e.target.value);
+    }, [setPassword]);
+
     return (
         <section className={styles.wrapper}>
             <p className='text text_type_main-medium mb-6'>
                 Вход
             </p>
             <div className={styles.inputWrapper + ' mb-6'}>
-                <EmailInput name={'email'} />
+                <EmailInput
+                    name={'email'}
+                    value={email}
+                    onChange={changeEmailHandler} />
             </div>
             <div className={styles.inputWrapper + ' mb-6'}>
-                <PasswordInput name={'password'} />
+                <PasswordInput
+                    name={'password'}
+                    value={password}
+                    onChange={changePasswordHandler} />
             </div>
             <div className='mb-20'>
                 <Button type="primary" size="medium" >

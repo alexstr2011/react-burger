@@ -5,6 +5,8 @@ import HomePage from '../../pages/home';
 import Page404 from '../../pages/page-404';
 import LoginPage from '../../pages/login';
 import RegisterPage from '../../pages/register';
+import ForgotPasswordPage from  '../../pages/forgot-password';
+import ResetPasswordPage from  '../../pages/reset-password';
 
 function App() {
     return (
@@ -19,6 +21,12 @@ function App() {
                 </Route>
                 <Route path='/register' exact={true}>
                     <RegisterPage/>
+                </Route>
+                <Route path='/forgot-password' exact={true}>
+                    <ForgotPasswordPage/>
+                </Route>
+                <Route path='/reset-password' exact={true}>
+                    <ResetPasswordPage/>
                 </Route>
                 <Route>
                     <Page404/>
