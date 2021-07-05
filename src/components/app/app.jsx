@@ -3,15 +3,22 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import HomePage from '../../pages/home';
 import Page404 from '../../pages/page-404';
+import LoginPage from '../../pages/login';
+import RegisterPage from '../../pages/register';
 
 function App() {
-
     return (
         <Router>
             <AppHeader/>
             <Switch>
                 <Route path='/' exact={true}>
                     <HomePage/>
+                </Route>
+                <Route path='/login' exact={true}>
+                    <LoginPage/>
+                </Route>
+                <Route path='/register' exact={true}>
+                    <RegisterPage/>
                 </Route>
                 <Route>
                     <Page404/>

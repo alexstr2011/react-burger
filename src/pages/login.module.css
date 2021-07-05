@@ -1,0 +1,26 @@
+.wrapper {
+    width: 480px;
+    margin: auto;
+    margin-top: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.textRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputWrapper :global(.input_size_default) {
+    width: 480px;
+}
+
+.link {
+    color: #4C4CFF;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
