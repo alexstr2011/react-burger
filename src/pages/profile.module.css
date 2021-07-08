@@ -1,0 +1,45 @@
+.positioning {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.wrapper {
+    width: 480px;
+    margin-top: 120px;
+    margin-right: calc(50vw - 240px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputWrapper :global(.input_size_default) {
+    width: 480px;
+}
+
+.menu {
+    margin-top: 120px;
+    margin-right: 60px;
+}
+
+.menuList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menuItem {
+    width: 320px;
+    height: 64px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.menuItemLink {
+    text-decoration: none;
+    color: #8585AD;
+}
+
+.menuActiveItemLink {
+    color: #F2F2F3;
+}

@@ -22,4 +22,6 @@
 .profile {
     composes: flexContainer;
     justify-content: flex-end;
+    text-decoration: none;
+    color: #8585AD;
 }

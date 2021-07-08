@@ -7,6 +7,7 @@ import LoginPage from '../../pages/login';
 import RegisterPage from '../../pages/register';
 import ForgotPasswordPage from  '../../pages/forgot-password';
 import ResetPasswordPage from  '../../pages/reset-password';
+import ProfilePage from '../../pages/profile';
 
 function App() {
     return (
@@ -27,6 +28,9 @@ function App() {
                 </Route>
                 <Route path='/reset-password' exact={true}>
                     <ResetPasswordPage/>
+                </Route>
+                <Route path='/profile' exact={true}>
+                    <ProfilePage/>
                 </Route>
                 <Route>
                     <Page404/>
