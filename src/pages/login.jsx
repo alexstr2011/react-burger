@@ -1,11 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import {login} from "../services/actions/user-actions";
 import styles from './login.module.css';
 
 function LoginPage() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+
+    const user = useSelector(store => store.userReducer.user);
+
+    const dispatch = useDispatch();
+
+    const loginHandler = React.useCallback(
+        () => {
+            dispatch(login(email, password));
+        }, [dispatch, email, password]);
 
     const changeEmailHandler = React.useCallback((e) => {
         setEmail(e.target.value);
@@ -14,6 +25,14 @@ function LoginPage() {
     const changePasswordHandler = React.useCallback((e) => {
         setPassword(e.target.value);
     }, [setPassword]);
+
+    if (user && user.name) {
+        return (
+            <Redirect
+                to={{ pathname: '/' }}
+            />
+        );
+    }
 
     return (
         <section className={styles.wrapper}>
@@ -33,7 +52,7 @@ function LoginPage() {
                     onChange={changePasswordHandler} />
             </div>
             <div className='mb-20'>
-                <Button type="primary" size="medium" >
+                <Button  onClick={loginHandler} type="primary" size="medium" >
                     Войти
                 </Button>
             </div>

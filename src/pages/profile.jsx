@@ -1,12 +1,23 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
-import { EmailInput, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components'
+import { useSelector, useDispatch } from 'react-redux';
+import {NavLink, Redirect} from 'react-router-dom';
+import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './profile.module.css';
+import {logout} from "../services/actions/user-actions";
 
 function ProfilePage() {
     const [email, setEmail] = React.useState('mail@stellar.burgers');
-    const [password, setPassword] = React.useState('123456789');
+    const [password, setPassword] = React.useState('1111111');
     const [name, setName] = React.useState('Марк');
+
+    const user = useSelector(store => store.userReducer.user);
+
+    const dispatch = useDispatch();
+
+    const logoutHandler = React.useCallback(
+        () => {
+            dispatch(logout());
+        }, [dispatch]);
 
     const changeEmailHandler = React.useCallback((e) => {
         setEmail(e.target.value);
@@ -19,6 +30,14 @@ function ProfilePage() {
     const changeNameHandler = React.useCallback((e) => {
         setName(e.target.value);
     }, [setName]);
+
+    if (!user || !user.name) {
+        return (
+            <Redirect
+                to={{ pathname: '/login' }}
+            />
+        );
+    }
 
     return (
         <div className={styles.positioning}>
@@ -78,7 +97,8 @@ function ProfilePage() {
                             </NavLink>
                         </li>
                         <li>
-                            <p className={styles.menuItem
+                            <p onClick={logoutHandler}
+                                className={styles.menuItem
                                 + ' ' + styles.menuItemLink
                                 + " text text_type_main-medium"}>
                                 Выход

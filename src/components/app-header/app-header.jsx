@@ -19,7 +19,7 @@ function AppHeader() {
                 </nav>
                 <Logo />
                 <nav>
-                    <NavLink to='/profile' className={styles.profile}>
+                    <NavLink to='/profile' className={styles.profile} activeClassName={styles.profileActive}>
                         <ProfileIcon type="secondary"/>
                         <p className="text text_type_main-default ml-2">
                             Личный кабинет

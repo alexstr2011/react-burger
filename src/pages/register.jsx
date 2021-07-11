@@ -1,18 +1,21 @@
 import React from 'react';
-import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './register.module.css';
+import { useDispatch } from 'react-redux';
 import {Link} from "react-router-dom";
-import {registerUser} from '../services/api/api';
+import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { register } from '../services/actions/user-actions';
+import styles from './register.module.css';
 
 function RegisterPage() {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [name, setName] = React.useState('');
 
+    const dispatch = useDispatch();
+
     const registerHandler = React.useCallback(
         () => {
-            registerUser(email, password, name);
-        }, [email, password, name]);
+            dispatch(register(email, password, name));
+        }, [dispatch, email, password, name]);
 
     const changeEmailHandler = React.useCallback((e) => {
         setEmail(e.target.value);
@@ -52,7 +55,7 @@ function RegisterPage() {
                     onChange={changePasswordHandler} />
             </div>
             <div className='mb-20'>
-                <Button type="primary" size="medium" onClick={registerHandler} >
+                <Button onClick={registerHandler} type="primary" size="medium"  >
                     Зарегистрироваться
                 </Button>
             </div>

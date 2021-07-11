@@ -1,13 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
-import HomePage from '../../pages/home';
-import Page404 from '../../pages/page-404';
-import LoginPage from '../../pages/login';
-import RegisterPage from '../../pages/register';
-import ForgotPasswordPage from  '../../pages/forgot-password';
-import ResetPasswordPage from  '../../pages/reset-password';
-import ProfilePage from '../../pages/profile';
+import { ForgotPasswordPage, HomePage, LoginPage, ProfilePage, RegisterPage,
+    ResetPasswordPage, Page404 } from '../../pages';
 
 function App() {
     return (
