@@ -3,6 +3,7 @@ import {useDispatch} from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import {ProtectedRoute} from '../protected-route/protected-route';
+import {ProtectedRouteAuthorized} from '../protected-route-authorized/protected-route-authorized';
 import { ForgotPasswordPage, HomePage, LoginPage, ProfilePage, RegisterPage,
     ResetPasswordPage, Page404 } from '../../pages';
 import { getUser } from '../../services/actions/user-actions';
@@ -20,18 +21,18 @@ function App() {
                 <Route path='/' exact={true}>
                     <HomePage/>
                 </Route>
-                <Route path='/login' exact={true}>
+                <ProtectedRouteAuthorized path='/login' exact={true}>
                     <LoginPage/>
-                </Route>
-                <Route path='/register' exact={true}>
+                </ProtectedRouteAuthorized>
+                <ProtectedRouteAuthorized path='/register' exact={true}>
                     <RegisterPage/>
-                </Route>
-                <Route path='/forgot-password' exact={true}>
+                </ProtectedRouteAuthorized>
+                <ProtectedRouteAuthorized path='/forgot-password' exact={true}>
                     <ForgotPasswordPage/>
-                </Route>
-                <Route path='/reset-password' exact={true}>
+                </ProtectedRouteAuthorized>
+                <ProtectedRouteAuthorized path='/reset-password' exact={true}>
                     <ResetPasswordPage/>
-                </Route>
+                </ProtectedRouteAuthorized>
                 <ProtectedRoute path='/profile' exact={true}>
                     <ProfilePage/>
                 </ProtectedRoute>

@@ -6,10 +6,11 @@ import {login} from "../services/actions/user-actions";
 import styles from './login.module.css';
 
 function LoginPage() {
+    const user = useSelector(store => store.userReducer.user);
+    const location = useLocation();
+
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-
-    const user = useSelector(store => store.userReducer.user);
 
     const dispatch = useDispatch();
 
@@ -18,8 +19,6 @@ function LoginPage() {
             e.preventDefault();
             dispatch(login(email, password));
         }, [dispatch, email, password]);
-
-    const location = useLocation();
 
     const changeEmailHandler = React.useCallback((e) => {
         setEmail(e.target.value);

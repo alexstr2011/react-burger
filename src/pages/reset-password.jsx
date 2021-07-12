@@ -1,17 +1,22 @@
 import React from 'react';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './reset-password.module.css';
-import {Link} from "react-router-dom";
-import {resetPassword} from '../services/api/api';
+import {Link, Redirect, useLocation} from "react-router-dom";
+import {resetPassword} from '../services/actions/user-actions';
+import {useDispatch, useSelector} from "react-redux";
 
 function ResetPasswordPage() {
+    const {isForgotPassword, isResetPassword} = useSelector(store => store.userReducer);
+    const location = useLocation();
+
     const [password, setPassword] = React.useState('');
     const [token, setToken] = React.useState('');
 
+    const dispatch = useDispatch();
     const restoreHandler = React.useCallback(
         (e) => {
             e.preventDefault();
-            resetPassword(password, token);
+            dispatch(resetPassword(password, token));
         }, [password, token]);
 
     const changePasswordHandler = React.useCallback((e) => {
@@ -21,6 +26,17 @@ function ResetPasswordPage() {
     const changeTokenHandler = React.useCallback((e) => {
         setToken(e.target.value);
     }, [setToken]);
+
+    if (isResetPassword || !isForgotPassword) {
+        return (
+            <Redirect
+                to={{
+                    pathname: isResetPassword ? '/login' : '/forgot-password',
+                    state: {from: location}
+                }}
+            />
+        );
+    }
 
     return (
         <section className={styles.wrapper}>

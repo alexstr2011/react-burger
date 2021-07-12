@@ -1,21 +1,40 @@
 import React from 'react';
-import {Link} from "react-router-dom";
-import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { forgotPassword } from '../services/api/api';
+import {Link, Redirect, useLocation} from "react-router-dom";
+import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { forgotPassword } from '../services/actions/user-actions';
 import styles from './forgot-password.module.css';
+import {useDispatch, useSelector} from 'react-redux';
 
 function ForgotPasswordPage() {
+    const isForgotPassword = useSelector(store => store.userReducer.isForgotPassword);
+    const location = useLocation();
     const [email, setEmail] = React.useState('');
 
+    const dispatch = useDispatch();
     const restoreHandler = React.useCallback(
         (e) => {
             e.preventDefault();
-            forgotPassword(email);
+            if (!email) {
+                return;
+            }
+
+            dispatch(forgotPassword(email));
         }, [email]);
 
     const changeEmailHandler = React.useCallback((e) => {
         setEmail(e.target.value);
     }, [setEmail]);
+
+    if (isForgotPassword) {
+        return (
+            <Redirect
+                to={{
+                    pathname: '/reset-password',
+                    state: {from: location}
+                }}
+            />
+        );
+    }
 
     return (
         <section className={styles.wrapper}>
