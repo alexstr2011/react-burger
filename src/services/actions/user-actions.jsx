@@ -186,15 +186,11 @@ export function getUser() {
                 authorization: 'Bearer ' + getCookie('accessToken')
             }
         }).then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Failed getting data from server');
-            }
+            return response.json();
         })
             .then((response) => {
                 if (!response.success) {
-                    throw new Error('Failed to login');
+                    throw response;
                 }
 
                 dispatch({
@@ -207,7 +203,6 @@ export function getUser() {
                     dispatch(refreshToken(getUser()));
                 }
 
-                console.log(error.message);
                 dispatch({
                     type: USER_ACTIONS.GET_USER_FAILED
                 });
@@ -217,6 +212,7 @@ export function getUser() {
 
 export function updateUser(email, password, name) {
     return function(dispatch) {
+        console.log('updateUser');
         dispatch({
             type: USER_ACTIONS.UPDATE_USER
         });
@@ -228,15 +224,11 @@ export function updateUser(email, password, name) {
             },
             body: JSON.stringify({email, password, name})
         }).then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Failed getting data from server');
-            }
+            return response.json();
         })
             .then((response) => {
                 if (!response.success) {
-                    throw new Error('Failed to login');
+                    throw response;
                 }
 
                 dispatch({
