@@ -14,7 +14,8 @@ function LoginPage() {
     const dispatch = useDispatch();
 
     const loginHandler = React.useCallback(
-        () => {
+        (e) => {
+            e.preventDefault();
             dispatch(login(email, password));
         }, [dispatch, email, password]);
 
@@ -36,26 +37,28 @@ function LoginPage() {
 
     return (
         <section className={styles.wrapper}>
-            <p className='text text_type_main-medium mb-6'>
-                Вход
-            </p>
-            <div className={styles.inputWrapper + ' mb-6'}>
-                <EmailInput
-                    name={'email'}
-                    value={email}
-                    onChange={changeEmailHandler} />
-            </div>
-            <div className={styles.inputWrapper + ' mb-6'}>
-                <PasswordInput
-                    name={'password'}
-                    value={password}
-                    onChange={changePasswordHandler} />
-            </div>
-            <div className='mb-20'>
-                <Button  onClick={loginHandler} type="primary" size="medium" >
-                    Войти
-                </Button>
-            </div>
+            <form onSubmit={loginHandler} className={styles.form}>
+                <p className='text text_type_main-medium mb-6'>
+                    Вход
+                </p>
+                <div className={styles.inputWrapper + ' mb-6'}>
+                    <EmailInput
+                        name={'email'}
+                        value={email}
+                        onChange={changeEmailHandler}/>
+                </div>
+                <div className={styles.inputWrapper + ' mb-6'}>
+                    <PasswordInput
+                        name={'password'}
+                        value={password}
+                        onChange={changePasswordHandler}/>
+                </div>
+                <div className='mb-20'>
+                    <Button type="primary" size="medium">
+                        Войти
+                    </Button>
+                </div>
+            </form>
             <section className={styles.textRow + ' mb-4'}>
                 <p className="text text_type_main-default text_color_inactive mr-2">
                     Вы - новый пользователь?

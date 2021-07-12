@@ -179,7 +179,6 @@ export function getUser() {
         dispatch({
             type: USER_ACTIONS.GET_USER
         });
-
         fetch(GET_USER_URL, {
             method: 'GET',
             headers: {
@@ -211,6 +210,48 @@ export function getUser() {
                 console.log(error.message);
                 dispatch({
                     type: USER_ACTIONS.GET_USER_FAILED
+                });
+            });
+    }
+}
+
+export function updateUser(email, password, name) {
+    return function(dispatch) {
+        dispatch({
+            type: USER_ACTIONS.UPDATE_USER
+        });
+        fetch(GET_USER_URL, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + getCookie('accessToken')
+            },
+            body: JSON.stringify({email, password, name})
+        }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed getting data from server');
+            }
+        })
+            .then((response) => {
+                if (!response.success) {
+                    throw new Error('Failed to login');
+                }
+
+                dispatch({
+                    type: USER_ACTIONS.UPDATE_USER_SUCCESS,
+                    user: response.user
+                });
+            })
+            .catch((error) => {
+                if (error.message === 'jwt expired') {
+                    dispatch(refreshToken(updateUser(email, password, name)));
+                }
+
+                console.log(error.message);
+                dispatch({
+                    type: USER_ACTIONS.UPDATE_USER_FAILED
                 });
             });
     }

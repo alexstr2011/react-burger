@@ -43,3 +43,9 @@
 .menuActiveItemLink {
     color: #F2F2F3;
 }
+
+.buttonsRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}

@@ -1,10 +1,17 @@
 import React from 'react';
+import {useDispatch} from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import { ForgotPasswordPage, HomePage, LoginPage, ProfilePage, RegisterPage,
     ResetPasswordPage, Page404 } from '../../pages';
+import { getUser } from '../../services/actions/user-actions';
 
 function App() {
+    const dispatch = useDispatch();
+    React.useEffect(()=>{
+        dispatch(getUser());
+    }, [dispatch]);
+
     return (
         <Router>
             <AppHeader/>

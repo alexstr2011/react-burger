@@ -1,35 +1,51 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {NavLink, Redirect} from 'react-router-dom';
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
+import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './profile.module.css';
-import {logout} from "../services/actions/user-actions";
+import {logout, updateUser} from "../services/actions/user-actions";
 
 function ProfilePage() {
-    const [email, setEmail] = React.useState('mail@stellar.burgers');
-    const [password, setPassword] = React.useState('1111111');
-    const [name, setName] = React.useState('Марк');
-
     const user = useSelector(store => store.userReducer.user);
+
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [name, setName] = React.useState('');
+
+    React.useEffect(() => {
+        if (user && user.name) {
+            setEmail(user.email);
+            setName(user.name);
+        }
+    }, [user]);
 
     const dispatch = useDispatch();
 
-    const logoutHandler = React.useCallback(
-        () => {
-            dispatch(logout());
-        }, [dispatch]);
+    const logoutHandler = () => {
+        dispatch(logout());
+    };
 
-    const changeEmailHandler = React.useCallback((e) => {
+    const updateHandler = e => {
+        e.preventDefault();
+        dispatch(updateUser(email, password, name));
+    };
+
+    const clearHandler = () => {
+        setEmail(user.email);
+        setName(user.name);
+    };
+
+    const changeEmailHandler = (e) => {
         setEmail(e.target.value);
-    }, [setEmail]);
+    };
 
-    const changePasswordHandler = React.useCallback((e) => {
+    const changePasswordHandler = (e) => {
         setPassword(e.target.value);
-    }, [setPassword]);
+    };
 
-    const changeNameHandler = React.useCallback((e) => {
+    const changeNameHandler = (e) => {
         setName(e.target.value);
-    }, [setName]);
+    };
 
     if (!user || !user.name) {
         return (
@@ -40,8 +56,9 @@ function ProfilePage() {
     }
 
     return (
+        user && user.name &&
         <div className={styles.positioning}>
-            <section className={styles.wrapper}>
+            <form onSubmit={updateHandler} className={styles.wrapper}>
                 <div className={styles.inputWrapper + ' mb-6'}>
                     <Input
                         name={'name'}
@@ -72,7 +89,15 @@ function ProfilePage() {
                         icon='EditIcon'
                     />
                 </div>
-            </section>
+                <div className={styles.buttonsRow}>
+                    <Button type="primary" size="medium">
+                        Сохранить
+                    </Button>
+                    <Button onClick={clearHandler} type="primary" size="medium">
+                        Отменить
+                    </Button>
+                </div>
+            </form>
             <section className={styles.menu}>
                 <nav>
                     <ul className={styles.menuList}>
