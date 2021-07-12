@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import {login} from "../services/actions/user-actions";
 import styles from './login.module.css';
@@ -19,6 +19,8 @@ function LoginPage() {
             dispatch(login(email, password));
         }, [dispatch, email, password]);
 
+    const location = useLocation();
+
     const changeEmailHandler = React.useCallback((e) => {
         setEmail(e.target.value);
     }, [setEmail]);
@@ -30,7 +32,7 @@ function LoginPage() {
     if (user && user.name) {
         return (
             <Redirect
-                to={{ pathname: '/' }}
+                to={ location?.state?.from || '/' }
             />
         );
     }

@@ -2,6 +2,7 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
+import {ProtectedRoute} from '../protected-route/protected-route';
 import { ForgotPasswordPage, HomePage, LoginPage, ProfilePage, RegisterPage,
     ResetPasswordPage, Page404 } from '../../pages';
 import { getUser } from '../../services/actions/user-actions';
@@ -31,9 +32,9 @@ function App() {
                 <Route path='/reset-password' exact={true}>
                     <ResetPasswordPage/>
                 </Route>
-                <Route path='/profile' exact={true}>
+                <ProtectedRoute path='/profile' exact={true}>
                     <ProfilePage/>
-                </Route>
+                </ProtectedRoute>
                 <Route>
                     <Page404/>
                 </Route>
