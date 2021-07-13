@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import {BURGER_CONSTRUCTOR, BURGER_INGREDIENTS, MODAL_INGREDIENT, ORDER_NUMBER} from '../actions/actions';
 import { userReducer } from './user-reducer';
+import { passwordReducer } from './password-reducer';
 
 const ingredientTypesInitialState = [
     {
@@ -124,5 +125,6 @@ export const rootReducer = combineReducers({
     burgerConstructorReducer,
     modalIngredientReducer,
     orderNumberReducer,
-    userReducer
+    userReducer,
+    passwordReducer
 });

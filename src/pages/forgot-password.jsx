@@ -1,12 +1,12 @@
 import React from 'react';
 import {Link, Redirect, useLocation} from "react-router-dom";
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { forgotPassword } from '../services/actions/user-actions';
+import { forgotPassword } from '../services/actions/password-actions';
 import styles from './forgot-password.module.css';
 import {useDispatch, useSelector} from 'react-redux';
 
 function ForgotPasswordPage() {
-    const isForgotPassword = useSelector(store => store.userReducer.isForgotPassword);
+    const isForgotPassword = useSelector(store => store.passwordReducer.isForgot);
     const location = useLocation();
     const [email, setEmail] = React.useState('');
 
@@ -19,7 +19,7 @@ function ForgotPasswordPage() {
             }
 
             dispatch(forgotPassword(email));
-        }, [email]);
+        }, [email, dispatch]);
 
     const changeEmailHandler = React.useCallback((e) => {
         setEmail(e.target.value);
