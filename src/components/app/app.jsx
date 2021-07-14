@@ -6,8 +6,8 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import {ProtectedRoute} from '../protected-route/protected-route';
 import {ProtectedRouteAuthorized} from '../protected-route-authorized/protected-route-authorized';
-import { ForgotPasswordPage, HomePage, LoginPage, ProfilePage, RegisterPage,
-    ResetPasswordPage, Page404 } from '../../pages';
+import { HomePage, RegisterPage, LoginPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage,
+    HistoryPage, HistoryOrderPage, FeedPage, FeedOrderPage, Page404 } from '../../pages';
 import { getUser } from '../../services/actions/user-actions';
 import { burgerIngredientsLoad } from '../../services/actions/actions';
 import styles from './app.module.css';
@@ -53,8 +53,20 @@ function App() {
                         <ProtectedRoute path='/profile' exact>
                             <ProfilePage/>
                         </ProtectedRoute>
+                        <ProtectedRoute path='/profile/orders' exact>
+                            <HistoryPage/>
+                        </ProtectedRoute>
+                        <ProtectedRoute path='/profile/orders/:id' exact>
+                            <HistoryOrderPage/>
+                        </ProtectedRoute>
+                        <Route path='/feed' exact>
+                            <FeedPage/>
+                        </Route>
+                        <Route path='/feed/:id' exact>
+                            <FeedOrderPage />
+                        </Route>
                         <Route path='/ingredients/:id' exact>
-                            <IngredientDetails addTitle />
+                            <IngredientDetails addTitle/>
                         </Route>
                         <Route>
                             <Page404/>

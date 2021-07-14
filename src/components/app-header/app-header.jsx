@@ -8,18 +8,28 @@ function AppHeader() {
         <header className={styles.header + ' m-10'}>
             <div className={styles.wrapper + ' m-5'}>
                 <nav className={styles.flexContainer}>
-                    <BurgerIcon type="primary"/>
-                    <p className="text text_type_main-default ml-2 mr-2">
-                        Конструктор
-                    </p>
-                    <ListIcon type="secondary"/>
-                    <p className="text text_type_main-default ml-2">
-                        Лента заказов
-                    </p>
+                    <NavLink exact to='/'
+                             className={styles.link}
+                             activeClassName={styles.linkActive}>
+                        <BurgerIcon type="secondary"/>
+                        <p className="text text_type_main-default ml-2 mr-2">
+                            Конструктор
+                        </p>
+                    </NavLink>
+                    <NavLink to='/feed'
+                             className={styles.link}
+                             activeClassName={styles.linkActive}>
+                        <ListIcon type="secondary"/>
+                        <p className="text text_type_main-default ml-2">
+                            Лента заказов
+                        </p>
+                    </NavLink>
                 </nav>
                 <Logo />
                 <nav>
-                    <NavLink to='/profile' className={styles.profile} activeClassName={styles.profileActive}>
+                    <NavLink to='/profile'
+                             className={`${styles.link}  ${styles.profile}`}
+                             activeClassName={styles.linkActive}>
                         <ProfileIcon type="secondary"/>
                         <p className="text text_type_main-default ml-2">
                             Личный кабинет
@@ -28,7 +38,6 @@ function AppHeader() {
                 </nav>
             </div>
         </header>
-
     );
 }
 

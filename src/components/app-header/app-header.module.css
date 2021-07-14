@@ -22,10 +22,22 @@
 .profile {
     composes: flexContainer;
     justify-content: flex-end;
-    text-decoration: none;
-    color: #8585AD;
 }
 
-.profileActive {
+.link {
+    text-decoration: none;
+    color: #8585AD;
+    display: flex;
+}
+
+.link svg {
+    fill: #8585AD;
+}
+
+.linkActive {
     color: white;
+}
+
+.linkActive svg {
+    fill: white;
 }

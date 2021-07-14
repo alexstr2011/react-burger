@@ -11,9 +11,9 @@ import styles from './burger-constructor.module.css';
 
 function BurgerConstructor () {
     const history = useHistory();
-    const {data, orderNumber, user} = useSelector(store => ({
+    const {data, order, user} = useSelector(store => ({
         data: store.burgerConstructorReducer,
-        orderNumber: store.orderNumberReducer.number,
+        order: store.orderNumberReducer,
         user: store.userReducer.user
     }));
 
@@ -92,13 +92,17 @@ function BurgerConstructor () {
                 <p className="text text_type_digits-medium mr-2">{orderValue}</p>
                 <CurrencyIcon type="primary" />
                 <div className="ml-10 mr-4">
-                    <Button onClick={createOrderHandler} type="primary" size="large" >
-                        Оформить заказ
-                    </Button>
+                    {order.isLoading ? (
+                        <p className={styles.orderInfo}>Creating...</p>
+                    ) : (
+                        <Button onClick={createOrderHandler} type="primary" size="large">
+                            Оформить заказ
+                        </Button>
+                    )}
                 </div>
             </div>
-            {!!orderNumber && <Modal closeModal={closeModal}>
-                <OrderDetails orderNumber={orderNumber}/>
+            {!!order.number && <Modal closeModal={closeModal}>
+                <OrderDetails orderNumber={order.number}/>
             </Modal>}
         </section>
     );
