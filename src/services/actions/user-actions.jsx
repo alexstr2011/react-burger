@@ -1,11 +1,10 @@
 import { setCookie, getCookie } from '../../utils/cookies';
-
+import {refreshToken} from "./actions";
 import {
     REGISTER_URL,
     LOGIN_URL,
     LOGOUT_URL,
-    GET_USER_URL,
-    TOKEN_URL
+    GET_USER_URL
 } from "../api/urls";
 
 export const USER_ACTIONS = {
@@ -145,37 +144,6 @@ export function logout() {
                 dispatch({
                     type: USER_ACTIONS.LOGOUT_FAILED
                 });
-            });
-    }
-}
-
-export function refreshToken(afterRefresh) {
-    return function(dispatch) {
-        fetch(TOKEN_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({token: localStorage.getItem('refreshToken')})
-        }).then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Failed getting data from server');
-            }
-        })
-            .then((response) => {
-                if (!response.success) {
-                    throw new Error('Failed to login');
-                }
-                const { accessToken, refreshToken } = response;
-                setCookie('accessToken', accessToken.split('Bearer ')[1]);
-                localStorage.setItem('refreshToken', refreshToken);
-
-                dispatch(afterRefresh);
-            })
-            .catch((error) => {
-                console.log(error.message);
             });
     }
 }

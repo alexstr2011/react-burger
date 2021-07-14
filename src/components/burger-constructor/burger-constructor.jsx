@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import {CurrencyIcon,Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import { BURGER_CONSTRUCTOR, ORDER_NUMBER, orderNumberLoad } from '../../services/actions/actions';
@@ -9,9 +10,11 @@ import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor () {
-    const {data, orderNumber} = useSelector(store => ({
+    const history = useHistory();
+    const {data, orderNumber, user} = useSelector(store => ({
         data: store.burgerConstructorReducer,
         orderNumber: store.orderNumberReducer.number,
+        user: store.userReducer.user
     }));
 
     const dispatch = useDispatch();
@@ -26,6 +29,11 @@ function BurgerConstructor () {
     }
 
     const createOrderHandler = () => {
+        if (!user || !user.name) {
+            history.push('/login');
+            return;
+        }
+
         if (!data.bun) {
             return;
         }
