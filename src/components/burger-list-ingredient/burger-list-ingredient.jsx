@@ -1,20 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
-import { MODAL_INGREDIENT } from '../../services/actions/actions';
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-list-ingredient.module.css';
 
 function BurgerListIngredient({data, ingredientAmount}) {
-    const dispatch = useDispatch();
-    const setModalIngredient = () => {
-        dispatch({
-            type: MODAL_INGREDIENT.SET,
-            data: data
-        });
-    };
-
     const [{isDrag}, dragRef] = useDrag({
         type: 'ingredient',
         item: data,
@@ -26,7 +16,7 @@ function BurgerListIngredient({data, ingredientAmount}) {
     const opacity = isDrag ? 0.1 : 1;
 
     return (
-        <div ref={dragRef} className={styles.ingredient + ' ml-4 mb-10 mt-6'} style={{opacity}}  onClick={setModalIngredient}>
+        <div ref={dragRef} className={styles.ingredient + ' ml-4 mb-10 mt-6'} style={{opacity}}>
             <img
                 className={styles.image}
                 src={data.image}

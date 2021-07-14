@@ -1,0 +1,10 @@
+.info {
+    text-align: center;
+    font-size: 36px;
+}
+
+.error {
+    text-align: center;
+    font-size: 36px;
+    color: red;
+}

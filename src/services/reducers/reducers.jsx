@@ -83,21 +83,6 @@ const burgerConstructorReducer = (state = burgerConstructorInitialState, action)
     }
 }
 
-const modalIngredientInitialState = {
-    ingredient: null
-};
-
-const modalIngredientReducer = (state = modalIngredientInitialState, action) => {
-    switch (action.type) {
-        case MODAL_INGREDIENT.SET:
-            return {...state, ingredient: action.data};
-        case MODAL_INGREDIENT.UNSET:
-            return {...state, ingredient: null};
-        default:
-            return state;
-    }
-}
-
 const orderNumberInitialState = {
     number: null,
     isLoading: false,
@@ -123,7 +108,6 @@ export const rootReducer = combineReducers({
     ingredientTypesReducer,
     burgerIngredientsReducer,
     burgerConstructorReducer,
-    modalIngredientReducer,
     orderNumberReducer,
     userReducer,
     passwordReducer

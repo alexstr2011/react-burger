@@ -1,19 +1,18 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-import { MODAL_INGREDIENT } from '../../services/actions/actions';
 import BurgerListIngredient from '../burger-list-ingredient/burger-list-ingredient';
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import Modal from '../modal/modal';
 import styles from './burger-ingredients.module.css';
 
 function BurgerIngredients() {
-    const {data, ingredientTypes, modalIngredient, burgerConstructor} = useSelector(store => ({
+    const {data, ingredientTypes, burgerConstructor} = useSelector(store => ({
         data: store.burgerIngredientsReducer.data,
         ingredientTypes: store.ingredientTypesReducer,
-        modalIngredient: store.modalIngredientReducer.ingredient,
         burgerConstructor: store.burgerConstructorReducer
     }));
+
+    const location = useLocation();
 
     const ingredientsAmount = React.useMemo(() => {
         const result = {};
@@ -29,13 +28,6 @@ function BurgerIngredients() {
         });
         return result;
     }, [burgerConstructor]);
-
-    const dispatch = useDispatch();
-    const closeModal = () => {
-        dispatch({
-            type: MODAL_INGREDIENT.UNSET
-        });
-    }
 
     const menuRef = React.useRef(null);
     const headersRef = React.useRef([]);
@@ -79,10 +71,16 @@ function BurgerIngredients() {
                     data.filter(elementIngredient => elementIngredient.type === elementType.type)
                         .map(elementIngredient =>
                             <li key={elementIngredient._id}>
-                                <BurgerListIngredient
-                                    data={elementIngredient}
-                                    ingredientAmount={ingredientsAmount[elementIngredient._id]}
-                                />
+                                <Link className={styles.link}
+                                    to={{
+                                        pathname: `/ingredients/${elementIngredient._id}`,
+                                        state: { background: location }
+                                    }}>
+                                    <BurgerListIngredient
+                                        data={elementIngredient}
+                                        ingredientAmount={ingredientsAmount[elementIngredient._id]}
+                                    />
+                                </Link>
                             </li>
                         )
                 }
@@ -110,9 +108,6 @@ function BurgerIngredients() {
             <ul onScroll={scrollHandler} className={styles.ingredientsList + ' scrollbar'}>
                 { ingredientsList }
             </ul>
-            {!!modalIngredient && <Modal closeModal={closeModal} title='Детали ингридиента' >
-                <IngredientDetails data={modalIngredient} />
-            </Modal>}
         </section>
     );
 }

@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+.header {
+    margin: 0;
+}
+
 .image {
     width: 480px;
     height: 240px;
