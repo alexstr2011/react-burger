@@ -38,7 +38,7 @@ function App() {
                         <Route path='/' exact>
                             <HomePage/>
                         </Route>
-                        <ProtectedRouteAuthorized path='/login' exact>
+                        <ProtectedRouteAuthorized path='/login' exact isLogin>
                             <LoginPage/>
                         </ProtectedRouteAuthorized>
                         <ProtectedRouteAuthorized path='/register' exact>

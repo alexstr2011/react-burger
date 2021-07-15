@@ -28,14 +28,6 @@ function LoginPage() {
         setPassword(e.target.value);
     }, [setPassword]);
 
-    if (user && user.name) {
-        return (
-            <Redirect
-                to={ location?.state?.from || '/' }
-            />
-        );
-    }
-
     return (
         <section className={styles.wrapper}>
             <form onSubmit={loginHandler} className={styles.form}>
