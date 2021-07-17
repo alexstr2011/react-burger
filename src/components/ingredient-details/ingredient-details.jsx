@@ -1,10 +1,23 @@
 import React from 'react';
+import {useSelector} from "react-redux";
+import { useParams } from 'react-router-dom';
 import styles from './ingredient-details.module.css';
 import PropTypes from "prop-types";
 
-function IngredientDetails({data}) {
+function IngredientDetails({addTitle = false}) {
+    const ingredients = useSelector(store => store.burgerIngredientsReducer.data);
+    const { id } = useParams();
+    const data = ingredients.find(({_id}) => _id === id);
+
     return (
         <section className={styles.ingredientDetails + ' mb-15'}>
+            {addTitle && (
+                <h2 className={styles.header}>
+                    <p className="text text_type_main-large">
+                        Детали ингредиента
+                    </p>
+                </h2>
+            )}
             <img src={data.image_large} className={styles.image} alt={data.name}/>
             <p className="text text_type_main-medium mt-4 mb-8">
                 {data.name}
@@ -48,14 +61,7 @@ function IngredientDetails({data}) {
 }
 
 IngredientDetails.propTypes = {
-    data: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-        calories: PropTypes.number,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number
-    }).isRequired
+    addTitle: PropTypes.bool
 }
 
 export default IngredientDetails;

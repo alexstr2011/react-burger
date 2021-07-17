@@ -1,36 +1,89 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
+import {useDispatch, useSelector} from 'react-redux';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import styles from './app.module.css';
+import Modal from '../modal/modal';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import {ProtectedRoute} from '../protected-route/protected-route';
+import {ProtectedRouteAuthorized} from '../protected-route-authorized/protected-route-authorized';
+import { HomePage, RegisterPage, LoginPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage,
+    HistoryPage, HistoryOrderPage, FeedPage, FeedOrderPage, Page404 } from '../../pages';
+import { getUser } from '../../services/actions/user-actions';
 import { burgerIngredientsLoad } from '../../services/actions/actions';
+import styles from './app.module.css';
 
 function App() {
-    const { isLoading, isError, data } = useSelector(store => store.burgerIngredientsReducer);
-
     const dispatch = useDispatch();
-
+    const {isLoading, isError, data} = useSelector(store => store.burgerIngredientsReducer);
     React.useEffect(() => {
+        dispatch(getUser());
         dispatch(burgerIngredientsLoad());
     }, [dispatch]);
 
+    const history = useHistory();
+    const location = useLocation();
+    const background = history.action === 'PUSH' && location.state && location.state.background;
+    const closeModal = () => {
+        history.goBack();
+    }
+
     return (
-        <div className={styles.app}>
+        <>
             <AppHeader/>
             {isLoading && <p className={styles.info}>Loading...</p>}
             {isError && <p className={styles.error}>Failed getting data from server</p>}
-            <DndProvider backend={HTML5Backend}>
-                {!isLoading && !isError && !!data.length &&
-                <main className={styles.main}>
-                    <BurgerIngredients/>
-                    <BurgerConstructor/>
-                </main>
-                }
-            </DndProvider>
-        </div>
+            {!isLoading && !isError && !!data.length && (
+                <>
+                    <Switch location={background || location}>
+                        <Route path='/' exact>
+                            <HomePage/>
+                        </Route>
+                        <ProtectedRouteAuthorized path='/login' exact isLogin>
+                            <LoginPage/>
+                        </ProtectedRouteAuthorized>
+                        <ProtectedRouteAuthorized path='/register' exact>
+                            <RegisterPage/>
+                        </ProtectedRouteAuthorized>
+                        <ProtectedRouteAuthorized path='/forgot-password' exact>
+                            <ForgotPasswordPage/>
+                        </ProtectedRouteAuthorized>
+                        <ProtectedRouteAuthorized path='/reset-password' exact>
+                            <ResetPasswordPage/>
+                        </ProtectedRouteAuthorized>
+                        <ProtectedRoute path='/profile' exact>
+                            <ProfilePage/>
+                        </ProtectedRoute>
+                        <ProtectedRoute path='/profile/orders' exact>
+                            <HistoryPage/>
+                        </ProtectedRoute>
+                        <ProtectedRoute path='/profile/orders/:id' exact>
+                            <HistoryOrderPage/>
+                        </ProtectedRoute>
+                        <Route path='/feed' exact>
+                            <FeedPage/>
+                        </Route>
+                        <Route path='/feed/:id' exact>
+                            <FeedOrderPage />
+                        </Route>
+                        <Route path='/ingredients/:id' exact>
+                            <IngredientDetails addTitle/>
+                        </Route>
+                        <Route>
+                            <Page404/>
+                        </Route>
+                    </Switch>
+                    {
+                        background && (
+                            <Route path='/ingredients/:id' exact>
+                                <Modal title='Детали ингредиента' closeModal={closeModal}>
+                                    <IngredientDetails/>
+                                </Modal>
+                            </Route>
+                        )
+                    }
+                </>
+            )}
+        </>
     );
 }
 

@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import {BURGER_CONSTRUCTOR, BURGER_INGREDIENTS, MODAL_INGREDIENT, ORDER_NUMBER} from '../actions/actions';
+import { userReducer } from './user-reducer';
+import { passwordReducer } from './password-reducer';
 
 const ingredientTypesInitialState = [
     {
@@ -81,21 +83,6 @@ const burgerConstructorReducer = (state = burgerConstructorInitialState, action)
     }
 }
 
-const modalIngredientInitialState = {
-    ingredient: null
-};
-
-const modalIngredientReducer = (state = modalIngredientInitialState, action) => {
-    switch (action.type) {
-        case MODAL_INGREDIENT.SET:
-            return {...state, ingredient: action.data};
-        case MODAL_INGREDIENT.UNSET:
-            return {...state, ingredient: null};
-        default:
-            return state;
-    }
-}
-
 const orderNumberInitialState = {
     number: null,
     isLoading: false,
@@ -121,6 +108,7 @@ export const rootReducer = combineReducers({
     ingredientTypesReducer,
     burgerIngredientsReducer,
     burgerConstructorReducer,
-    modalIngredientReducer,
-    orderNumberReducer
+    orderNumberReducer,
+    userReducer,
+    passwordReducer
 });

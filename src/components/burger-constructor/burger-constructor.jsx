@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import {CurrencyIcon,Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import { BURGER_CONSTRUCTOR, ORDER_NUMBER, orderNumberLoad } from '../../services/actions/actions';
@@ -9,9 +10,11 @@ import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor () {
-    const {data, orderNumber} = useSelector(store => ({
+    const history = useHistory();
+    const {data, order, user} = useSelector(store => ({
         data: store.burgerConstructorReducer,
-        orderNumber: store.orderNumberReducer.number,
+        order: store.orderNumberReducer,
+        user: store.userReducer.user
     }));
 
     const dispatch = useDispatch();
@@ -26,6 +29,11 @@ function BurgerConstructor () {
     }
 
     const createOrderHandler = () => {
+        if (!user || !user.name) {
+            history.push('/login');
+            return;
+        }
+
         if (!data.bun) {
             return;
         }
@@ -84,13 +92,17 @@ function BurgerConstructor () {
                 <p className="text text_type_digits-medium mr-2">{orderValue}</p>
                 <CurrencyIcon type="primary" />
                 <div className="ml-10 mr-4">
-                    <Button onClick={createOrderHandler} type="primary" size="large" >
-                        Оформить заказ
-                    </Button>
+                    {order.isLoading ? (
+                        <p className={styles.orderInfo}>Creating...</p>
+                    ) : (
+                        <Button onClick={createOrderHandler} type="primary" size="large">
+                            Оформить заказ
+                        </Button>
+                    )}
                 </div>
             </div>
-            {!!orderNumber && <Modal closeModal={closeModal}>
-                <OrderDetails orderNumber={orderNumber}/>
+            {!!order.number && <Modal closeModal={closeModal}>
+                <OrderDetails orderNumber={order.number}/>
             </Modal>}
         </section>
     );

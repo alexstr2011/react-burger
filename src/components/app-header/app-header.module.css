@@ -23,3 +23,21 @@
     composes: flexContainer;
     justify-content: flex-end;
 }
+
+.link {
+    text-decoration: none;
+    color: #8585AD;
+    display: flex;
+}
+
+.link svg {
+    fill: #8585AD;
+}
+
+.linkActive {
+    color: white;
+}
+
+.linkActive svg {
+    fill: white;
+}
