@@ -1,0 +1,36 @@
+.wrapper {
+    background-color: #1C1C21;
+    border-radius: 40px;
+}
+
+.history {
+    width: 844px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.rowFar {
+    justify-content: space-between;
+}
+
+.picturesList {
+    flex-direction: row-reverse;
+    list-style-type: none;
+    margin: 0;
+    margin-left: 15px;
+    padding: 0;
+}
+
+.picture {
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    background: linear-gradient(90deg, #801AB2, #4C4CFF) border-box;
+    border-radius: 50%;
+    margin-left: -15px;
+}
+
