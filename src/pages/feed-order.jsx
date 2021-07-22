@@ -2,7 +2,9 @@ import React from 'react';
 
 function FeedOrderPage() {
     return (
-        <div>Feed order page</div>
+        <>
+            <div>Feed order page</div>
+        </>
     );
 }
 
