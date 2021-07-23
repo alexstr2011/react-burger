@@ -5,7 +5,7 @@ import picture from '../../images/checkMark.png';
 
 function OrderElement() {
     return (
-        <section className={styles.wrapper + ' ' + styles.history + ' p-6'}>
+        <section className={styles.wrapper + ' ' + styles.feed + ' p-6'}>
             <div className={styles.row + ' ' + styles.rowFar}>
                 <p className="text text_type_digits-default">
                     #034535

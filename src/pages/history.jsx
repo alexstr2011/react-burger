@@ -1,11 +1,19 @@
 import React from 'react';
 import OrderElement from "../components/order-element/order-element";
+import ProfileMenu from "../components/profile-menu/profile-menu";
+import styles from './history.module.css';
 
 function HistoryPage() {
     return (
-        <div>
-            <div>History page</div>
-            <OrderElement/>
+        <div className={styles.wrapper}>
+            <ProfileMenu/>
+            <ul className={styles.list + ' scrollbar'}>
+                <li><OrderElement/></li>
+                <li><OrderElement/></li>
+                <li><OrderElement/></li>
+                <li><OrderElement/></li>
+                <li><OrderElement/></li>
+            </ul>
         </div>
 
     );

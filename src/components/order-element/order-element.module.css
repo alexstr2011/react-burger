@@ -1,10 +1,15 @@
 .wrapper {
     background-color: #1C1C21;
     border-radius: 40px;
+    box-sizing: border-box;
 }
 
 .history {
     width: 844px;
+}
+
+.feed {
+    width: 584px;
 }
 
 .row {
