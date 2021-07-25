@@ -13,6 +13,13 @@ export const INGREDIENT_TYPES = [
     }
 ];
 
+export const ORDER_STATUSES = {
+    done: 'Выполнен',
+    created: 'Создан',
+    pending: 'Готовится',
+    cancelled: 'Отменен'
+}
+
 const data = [
     {
         "_id": "60666c42cc7b410027a1a9b1",

@@ -1,12 +1,12 @@
-import { WEB_SOCKET } from '../actions/orders-actions';
+import { WEB_SOCKET_ACTION, WEB_SOCKET_TYPE } from '../actions/orders-actions';
 
 const initialState = {
-    allOrders: {
+    [WEB_SOCKET_TYPE.ALL_ORDERS]: {
         wsConnected: false,
         error: null,
         data: null
     },
-    userOrders: {
+    [WEB_SOCKET_TYPE.USER_ORDERS]: {
         wsConnected: false,
         error: null,
         data: null
@@ -15,7 +15,7 @@ const initialState = {
 
 export const ordersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case WEB_SOCKET.CONNECTION_SUCCESS:
+        case WEB_SOCKET_ACTION.CONNECTION_SUCCESS:
             return {
                 ...state,
                 [action.socketType]: {
@@ -24,7 +24,7 @@ export const ordersReducer = (state = initialState, action) => {
                     wsConnected: true
                 }
             };
-        case WEB_SOCKET.CONNECTION_ERROR:
+        case WEB_SOCKET_ACTION.CONNECTION_ERROR:
             return {
                 ...state,
                 [action.socketType]: {
@@ -33,7 +33,7 @@ export const ordersReducer = (state = initialState, action) => {
                     wsConnected: false
                 }
             };
-        case WEB_SOCKET.CONNECTION_CLOSED:
+        case WEB_SOCKET_ACTION.CONNECTION_CLOSED:
             return {
                 ...state,
                 [action.socketType]: {
@@ -42,7 +42,7 @@ export const ordersReducer = (state = initialState, action) => {
                     wsConnected: false
                 }
             };
-        case WEB_SOCKET.GET_MESSAGE:
+        case WEB_SOCKET_ACTION.GET_MESSAGE:
             return {
                 ...state,
                 [action.socketType]: {

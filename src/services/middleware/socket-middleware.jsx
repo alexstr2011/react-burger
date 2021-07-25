@@ -1,14 +1,14 @@
-import { WEB_SOCKET } from '../actions/orders-actions';
+import {WEB_SOCKET_ACTION, WEB_SOCKET_TYPE} from '../actions/orders-actions';
 
-export const socketMiddleware = (wsUrl) => {
+export const socketMiddleware = (wsUrl, socketType) => {
     return store => {
         let socket = null;
 
         return next => action => {
             const { dispatch } = store;
-            const { type, socketType, token } = action;
+            const { type, token } = action;
 
-            if (type === WEB_SOCKET.CONNECTION_START) {
+            if (type === WEB_SOCKET_ACTION.CONNECTION_START) {
                 if (token) {
                     socket = new WebSocket(`${wsUrl}?token=${token}`);
                 } else {
@@ -19,7 +19,7 @@ export const socketMiddleware = (wsUrl) => {
             if (socket) {
                 socket.onopen = event => {
                     dispatch({
-                        type: WEB_SOCKET.CONNECTION_SUCCESS,
+                        type: WEB_SOCKET_ACTION.CONNECTION_SUCCESS,
                         payload: event,
                         socketType
                     });
@@ -27,7 +27,7 @@ export const socketMiddleware = (wsUrl) => {
 
                 socket.onerror = event => {
                     dispatch({
-                        type: WEB_SOCKET.CONNECTION_ERROR,
+                        type: WEB_SOCKET_ACTION.CONNECTION_ERROR,
                         payload: event,
                         socketType
                     });
@@ -35,7 +35,7 @@ export const socketMiddleware = (wsUrl) => {
 
                 socket.onmessage = event => {
                     dispatch({
-                        type: WEB_SOCKET.GET_MESSAGE,
+                        type: WEB_SOCKET_ACTION.GET_MESSAGE,
                         payload: JSON.parse(event.data),
                         socketType
                     });
@@ -43,8 +43,8 @@ export const socketMiddleware = (wsUrl) => {
 
                 socket.onclose = event => {
                     dispatch({
-                        type: WEB_SOCKET.CONNECTION_CLOSED,
-                        payload: JSON.parse(event.data),
+                        type: WEB_SOCKET_ACTION.CONNECTION_CLOSED,
+                        payload: event,
                         socketType
                     });
                 };
