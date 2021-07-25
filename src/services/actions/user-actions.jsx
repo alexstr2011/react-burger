@@ -23,7 +23,7 @@ export const USER_ACTIONS = {
     UPDATE_USER: 'USER/UPDATE_USER',
     UPDATE_USER_SUCCESS: 'USER/UPDATE_USER_SUCCESS',
     UPDATE_USER_FAILED: 'USER/UPDATE_USER_FAILED'
-}
+};
 
 export function register(email, password, name) {
     return function(dispatch) {
