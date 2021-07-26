@@ -1,4 +1,6 @@
 import {WS_ALL_ORDERS_ACTION, WS_USER_ORDERS_ACTION} from '../actions/orders-actions';
+import {refreshToken} from "../actions/actions";
+import {getCookie} from "../../utils/cookies";
 
 export const socketMiddlewareAllOrders = (wsUrl) => {
     return store => {
@@ -75,10 +77,18 @@ export const socketMiddlewareUserOrders = (wsUrl) => {
                 };
 
                 socket.onmessage = event => {
-                    dispatch({
-                        type: WS_USER_ORDERS_ACTION.GET_MESSAGE,
-                        payload: JSON.parse(event.data),
-                    });
+                    const parsedData = JSON.parse(event.data);
+                    if (parsedData.message && parsedData.message === "Invalid or missing token") {
+                        dispatch(refreshToken({
+                            type: WS_USER_ORDERS_ACTION.CONNECTION_START,
+                            token: getCookie('accessToken')
+                        }));
+                    } else {
+                        dispatch({
+                            type: WS_USER_ORDERS_ACTION.GET_MESSAGE,
+                            payload: parsedData
+                        });
+                    }
                 };
 
                 socket.onclose = event => {
