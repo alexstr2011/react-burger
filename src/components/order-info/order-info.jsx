@@ -1,25 +1,40 @@
 import React from 'react';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
-import { useParams } from 'react-router-dom';
+import { useParams,useLocation } from 'react-router-dom';
 import styles from './order-info.module.css';
-import {WS_ALL_ORDERS_ACTION} from "../../services/actions/orders-actions";
+import {WS_ALL_ORDERS_ACTION, WS_USER_ORDERS_ACTION} from "../../services/actions/orders-actions";
 import {ORDER_STATUSES} from "../../utils/data";
 import {formatOrderDate} from "../../utils/formatDate";
+import {getCookie} from "../../utils/cookies";
 
 function OrderInfo() {
     const dispatch = useDispatch();
+    const location = useLocation();
     const { id } = useParams();
     const allIngredients = useSelector(store => store.burgerIngredientsReducer.data);
-    const { wsConnected, data } = useSelector(store => store.allOrdersReducer);
-    if (!wsConnected) {
+
+    const isFeed = location.pathname.includes('/feed');
+
+    let allOrdersReducer = useSelector(store => store.allOrdersReducer);
+    if (isFeed && allOrdersReducer && !allOrdersReducer.wsConnected) {
         dispatch({
             type: WS_ALL_ORDERS_ACTION.CONNECTION_START
         });
     }
 
+    let userOrdersReducer = useSelector(store => store.userOrdersReducer);
+    if (!isFeed && userOrdersReducer && !userOrdersReducer.wsConnected ) {
+        dispatch({
+            type: WS_USER_ORDERS_ACTION.CONNECTION_START,
+            token: getCookie('accessToken')
+        });
+    }
+
+    const data = isFeed ? allOrdersReducer.data : userOrdersReducer.data;
+
     let order;
-    if (id && data) {
+    if (id && data && data.orders) {
         order = data.orders.find(order => order._id === id);
     }
 
@@ -66,7 +81,7 @@ function OrderInfo() {
                         </li>
                     ))}
                 </ul>
-                <div className={styles.row + ' mt-10'}>
+                <div className={styles.row + ' mt-10 mb-10'}>
                     <p className="text text_type_main-default text_color_inactive">
                         {formatOrderDate(order.createdAt)}
                     </p>

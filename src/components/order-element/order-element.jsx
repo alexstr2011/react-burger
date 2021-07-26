@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import styles from './order-element.module.css';
 import {formatOrderDate} from "../../utils/formatDate";
 
-function OrderElement({data}) {
+function OrderElement({data, isHistory = false}) {
     const allIngredients = useSelector(store => store.burgerIngredientsReducer.data);
 
     const ingredients = React.useMemo(()=>{
@@ -22,24 +22,8 @@ function OrderElement({data}) {
 
     const showIngredients = ingredients.filter((_,index) => index < 5);
 
-    const dateFormatted = new Intl.DateTimeFormat('ru-ru',{
-        timeZoneName: 'short',
-        hour: '2-digit',
-        minute: '2-digit'
-    }).format(new Date(data.createdAt));
-
-    const diffDays = Math.floor(Math.abs(new Date() - new Date(data.createdAt)) / (1000 * 60 * 60 * 24));
-    let dateDescr = '';
-    if (diffDays === 0) {
-        dateDescr = 'Сегодня, ';
-    } else if (diffDays === 1) {
-        dateDescr = 'Вчера, ';
-    } else {
-        dateDescr = `${diffDays} дня(ей) назад, `;
-    }
-
     return (
-        <section className={styles.wrapper + ' ' + styles.feed + ' p-6'}>
+        <section className={styles.wrapper + ' ' + (isHistory ? styles.history : styles.feed) + ' p-6'}>
             <div className={styles.row + ' ' + styles.rowFar}>
                 <p className="text text_type_digits-default">
                     #{data.number}
@@ -80,7 +64,8 @@ OrderElement.propTypes = {
         number: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         status: PropTypes.string.isRequired
-    }).isRequired
+    }).isRequired,
+    isHistory: PropTypes.bool
 }
 
 export default OrderElement;

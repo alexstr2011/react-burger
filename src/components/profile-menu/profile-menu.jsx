@@ -18,6 +18,7 @@ function ProfileMenu() {
                         <NavLink to='/profile'
                                  className={styles.menuItemLink}
                                  activeClassName={styles.menuActiveItemLink}
+                                 exact
                         >
                             <p className={styles.menuItem + " text text_type_main-medium"}>
                                 Профиль

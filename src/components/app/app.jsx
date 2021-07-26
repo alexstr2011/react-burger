@@ -75,11 +75,23 @@ function App() {
                     </Switch>
                     {
                         background && (
-                            <Route path='/ingredients/:id' exact>
-                                <Modal title='Детали ингредиента' closeModal={closeModal}>
-                                    <IngredientDetails/>
-                                </Modal>
-                            </Route>
+                            <>
+                                <Route path='/ingredients/:id' exact>
+                                    <Modal title='Детали ингредиента' closeModal={closeModal}>
+                                        <IngredientDetails/>
+                                    </Modal>
+                                </Route>
+                                <Route path='/feed/:id' exact>
+                                    <Modal closeModal={closeModal}>
+                                        <OrderInfo/>
+                                    </Modal>
+                                </Route>
+                                <ProtectedRoute path='/profile/orders/:id' exact>
+                                    <Modal closeModal={closeModal}>
+                                        <OrderInfo/>
+                                    </Modal>
+                                </ProtectedRoute>
+                            </>
                         )
                     }
                 </>
