@@ -20,7 +20,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    height: 335px;
+    max-height: 335px;
 }
 
 .row {
@@ -28,16 +28,25 @@
     align-items: center;
 }
 
-.picture {
+.pictureContainer {
     width: 64px;
     height: 64px;
     border: 2px solid transparent;
     background: linear-gradient(90deg, #801AB2, #4C4CFF) border-box;
     border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.picture {
+    height: 100%;
+    background-color: #131316;
 }
 
 .ingredient {
-    width: 414px;
+    width: 380px;
 }
 
 .toTheRight {

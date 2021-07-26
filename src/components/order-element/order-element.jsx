@@ -4,6 +4,7 @@ import {ORDER_STATUSES} from "../../utils/data";
 import {useSelector} from "react-redux";
 import PropTypes from 'prop-types';
 import styles from './order-element.module.css';
+import {formatOrderDate} from "../../utils/formatDate";
 
 function OrderElement({data}) {
     const allIngredients = useSelector(store => store.burgerIngredientsReducer.data);
@@ -44,7 +45,7 @@ function OrderElement({data}) {
                     #{data.number}
                 </p>
                 <p className="text text_type_main-default text_color_inactive">
-                    {dateDescr + dateFormatted}
+                    {formatOrderDate(data.createdAt)}
                 </p>
             </div>
             <p className="text text_type_main-medium mt-6 mb-2">
