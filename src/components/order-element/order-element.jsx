@@ -20,7 +20,9 @@ function OrderElement({data, isHistory = false}) {
         return ingredients.reduce((accum, ingredient) => accum + ingredient.price, 0);
     }, [ingredients]);
 
-    const showIngredients = ingredients.filter((_,index) => index < 5);
+    const showIngredients = ingredients.filter((_,index) => index <= 5);
+    const hiddenIngredients = (ingredients.length !== showIngredients.length)
+        ? ingredients.length - showIngredients.length + 1 : 0;
 
     return (
         <section className={styles.wrapper + ' ' + (isHistory ? styles.history : styles.feed) + ' p-6'}>
@@ -40,11 +42,21 @@ function OrderElement({data, isHistory = false}) {
             </p>
             <div className={styles.row + ' ' + styles.rowFar}>
                 <ul className={styles.picturesList + ' ' + styles.row}>
-                    {showIngredients && showIngredients.map((ingredient,index) => (
-                        <li key={ingredient._id + index} className={styles.pictureContainer}>
-                            <img src={ingredient.image} alt={ingredient.name} className={styles.picture} />
-                        </li>
-                    ))}
+                    {showIngredients && showIngredients.map((ingredient,index) => {
+                        const isShowHidden = !!hiddenIngredients && index === 0;
+
+                        return (
+                            <li key={ingredient._id + index} className={styles.pictureContainer}>
+                                <img src={ingredient.image} alt={ingredient.name} className={styles.picture} />
+                                {isShowHidden && (
+                                    <p className={"text text_type_main-default " + styles.hiddenIngredients}>
+                                        {`+${hiddenIngredients}`}
+                                    </p>
+                                )}
+                            </li>
+                        )
+                    }
+                    )}
                 </ul>
                 <div className={styles.row}>
                     <p className="text text_type_digits-default mr-2">
