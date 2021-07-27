@@ -176,7 +176,6 @@ export function getUser() {
                 if (error.message === 'jwt expired') {
                     dispatch(refreshToken(getUser()));
                 }
-                //deleteCookie('accessToken');
                 dispatch({
                     type: USER_ACTIONS.GET_USER_FAILED
                 });
