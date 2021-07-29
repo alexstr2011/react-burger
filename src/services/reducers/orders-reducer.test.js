@@ -70,7 +70,6 @@ describe('allOrdersReducer', () => {
             data: allOrdersData
         });
     });
-
 });
 
 const userOrdersDate = {
@@ -144,5 +143,4 @@ describe('userOrdersReducer', () => {
             data: userOrdersDate
         });
     });
-
 });

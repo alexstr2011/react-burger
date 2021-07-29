@@ -16,7 +16,7 @@ export const passwordReducer = (state = passwordInitialState, action) => {
         case PASSWORD_ACTIONS.FORGOT_PASSWORD_FAILED:
             return {...state, isForgotLoading: false, isForgotError: true}
         case PASSWORD_ACTIONS.FORGOT_PASSWORD_SUCCESS:
-            return {...state, isForgot: true, isLoading: false, isError: false}
+            return {...state, isForgot: true, isForgotLoading: false, isForgotError: false}
         case PASSWORD_ACTIONS.RESET_PASSWORD:
             return {...state, isReset: false, isResetLoading: true, isResetError: false}
         case PASSWORD_ACTIONS.RESET_PASSWORD_FAILED:
