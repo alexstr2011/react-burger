@@ -1,0 +1,54 @@
+.wrapper {
+    width: 640px;
+    margin: auto;
+}
+
+.number {
+    text-align: center;
+}
+
+.status {
+    color: #00CCCC;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    max-height: 335px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.pictureContainer {
+    width: 64px;
+    height: 64px;
+    border: 2px solid transparent;
+    background: linear-gradient(90deg, #801AB2, #4C4CFF) border-box;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.picture {
+    height: 100%;
+    background-color: #131316;
+}
+
+.ingredient {
+    width: 380px;
+}
+
+.toTheRight {
+    margin-left: auto;
+}

@@ -1,13 +1,11 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, Redirect, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import {login} from "../services/actions/user-actions";
 import styles from './login.module.css';
 
 function LoginPage() {
-    const user = useSelector(store => store.userReducer.user);
-    const location = useLocation();
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');

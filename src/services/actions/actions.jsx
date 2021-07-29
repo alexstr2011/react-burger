@@ -5,7 +5,7 @@ export const BURGER_INGREDIENTS = {
     LOAD: 'BURGER_INGREDIENTS/LOAD',
     LOAD_SUCCESS: 'BURGER_INGREDIENTS/LOAD_SUCCESS',
     LOAD_FAILED: 'BURGER_INGREDIENTS/LOAD_FAILED'
-}
+};
 
 export function burgerIngredientsLoad() {
     return function(dispatch) {
@@ -40,14 +40,14 @@ export const BURGER_CONSTRUCTOR = {
     REMOVE: 'BURGER_CONSTRUCTOR/REMOVE',
     REMOVE_ALL: 'BURGER_CONSTRUCTOR/REMOVE_ALL',
     MOVE: 'BURGER_CONSTRUCTOR/MOVE'
-}
+};
 
 export const ORDER_NUMBER = {
     LOAD: 'ORDER_NUMBER/LOAD',
     LOAD_SUCCESS: 'ORDER_NUMBER/LOAD_SUCCESS',
     LOAD_FAILED: 'ORDER_NUMBER/LOAD_FAILED',
     DELETE: 'ORDER_NUMBER/DELETE'
-}
+};
 
 export function refreshToken(afterRefresh) {
     return function(dispatch) {

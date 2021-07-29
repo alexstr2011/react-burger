@@ -1,4 +1,4 @@
-import { setCookie, getCookie } from '../../utils/cookies';
+import {setCookie, getCookie, deleteCookie} from '../../utils/cookies';
 import {refreshToken} from "./actions";
 import {
     REGISTER_URL,
@@ -23,7 +23,7 @@ export const USER_ACTIONS = {
     UPDATE_USER: 'USER/UPDATE_USER',
     UPDATE_USER_SUCCESS: 'USER/UPDATE_USER_SUCCESS',
     UPDATE_USER_FAILED: 'USER/UPDATE_USER_FAILED'
-}
+};
 
 export function register(email, password, name) {
     return function(dispatch) {
@@ -49,7 +49,7 @@ export function register(email, password, name) {
                     throw new Error('Failed to register the user');
                 }
                 const { accessToken, refreshToken } = response;
-                setCookie('accessToken', accessToken.split('Bearer ')[1]);
+                setCookie('accessToken', accessToken.split('Bearer ')[1], {expires: 20 * 60});
                 localStorage.setItem('refreshToken', refreshToken);
 
                 dispatch({
@@ -90,7 +90,7 @@ export function login(email, password) {
                     throw new Error('Failed to login');
                 }
                 const { accessToken, refreshToken } = response;
-                setCookie('accessToken', accessToken.split('Bearer ')[1]);
+                setCookie('accessToken', accessToken.split('Bearer ')[1], {expires: 20 * 60});
                 localStorage.setItem('refreshToken', refreshToken);
 
                 dispatch({
@@ -133,8 +133,8 @@ export function logout() {
                     throw new Error('Failed to logout');
                 }
 
-                setCookie('accessToken', '');
-                localStorage.setItem('refreshToken', '');
+                deleteCookie('accessToken');
+                localStorage.removeItem('refreshToken');
                 dispatch({
                     type: USER_ACTIONS.LOGOUT_SUCCESS
                 });
@@ -176,7 +176,6 @@ export function getUser() {
                 if (error.message === 'jwt expired') {
                     dispatch(refreshToken(getUser()));
                 }
-                setCookie('accessToken', '');
                 dispatch({
                     type: USER_ACTIONS.GET_USER_FAILED
                 });

@@ -1,0 +1,30 @@
+.allWrapper {
+    width: 1240px;
+    margin: auto;
+}
+
+.wrapper {
+    display: flex;
+    column-gap: 60px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    height: calc(100vh - 227px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list > li {
+    margin-right: 8px;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}

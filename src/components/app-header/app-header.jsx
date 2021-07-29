@@ -25,7 +25,10 @@ function AppHeader() {
                         </p>
                     </NavLink>
                 </nav>
-                <Logo />
+                <NavLink exact to='/'
+                         className={styles.link}>
+                    <Logo />
+                </NavLink>
                 <nav>
                     <NavLink to='/profile'
                              className={`${styles.link}  ${styles.profile}`}

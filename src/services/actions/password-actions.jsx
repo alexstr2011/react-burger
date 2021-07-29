@@ -7,7 +7,7 @@ export const PASSWORD_ACTIONS = {
     RESET_PASSWORD: 'PASSWORD/RESET_PASSWORD',
     RESET_PASSWORD_SUCCESS: 'PASSWORD/RESET_PASSWORD_SUCCESS',
     RESET_PASSWORD_FAILED: 'PASSWORD/RESET_PASSWORD_FAILED'
-}
+};
 
 export function forgotPassword(email) {
     return function (dispatch) {
