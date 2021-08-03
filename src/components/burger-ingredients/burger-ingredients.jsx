@@ -66,7 +66,7 @@ function BurgerIngredients() {
             <p  ref={headersRef.current[index]} className="text text_type_main-medium">
                 {elementType.name}
             </p>
-            <ul className={styles.ingredientsOfType}>
+            <ul className={styles.ingredientsOfType} name={elementType.name}>
                 {
                     data.filter(elementIngredient => elementIngredient.type === elementType.type)
                         .map(elementIngredient =>

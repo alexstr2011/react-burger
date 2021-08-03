@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import {BURGER_CONSTRUCTOR, BURGER_INGREDIENTS, MODAL_INGREDIENT, ORDER_NUMBER} from '../actions/actions';
+import {BURGER_CONSTRUCTOR, BURGER_INGREDIENTS, ORDER_NUMBER} from '../actions/actions';
 import { userReducer } from './user-reducer';
 import { passwordReducer } from './password-reducer';
 import { allOrdersReducer, userOrdersReducer } from './orders-reducer';
@@ -19,7 +19,7 @@ const ingredientTypesInitialState = [
     }
 ];
 
-const ingredientTypesReducer = (state = ingredientTypesInitialState) => {
+export const ingredientTypesReducer = (state = ingredientTypesInitialState) => {
     return state;
 };
 
@@ -29,7 +29,7 @@ const burgerIngredientsInitialState = {
     isError: false
 };
 
-const burgerIngredientsReducer = (state = burgerIngredientsInitialState, action) => {
+export const burgerIngredientsReducer = (state = burgerIngredientsInitialState, action) => {
     switch(action.type) {
         case BURGER_INGREDIENTS.LOAD:
             return {...state, data: [], isLoading: true, isError: false}
@@ -47,7 +47,7 @@ const burgerConstructorInitialState = {
     inners: []
 };
 
-const burgerConstructorReducer = (state = burgerConstructorInitialState, action) => {
+export const burgerConstructorReducer = (state = burgerConstructorInitialState, action) => {
     switch(action.type) {
         case BURGER_CONSTRUCTOR.ADD: {
             const key = action.ingredient._id + action.localId;
@@ -90,7 +90,7 @@ const orderNumberInitialState = {
     isError: false
 };
 
-const orderNumberReducer = (state = orderNumberInitialState, action) => {
+export const orderNumberReducer = (state = orderNumberInitialState, action) => {
     switch(action.type) {
         case ORDER_NUMBER.LOAD:
             return {...state, number: null, isLoading: true, isError: false}
