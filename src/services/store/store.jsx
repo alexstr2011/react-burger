@@ -4,7 +4,7 @@ import {rootReducer} from "../reducers/reducers";
 import {socketMiddlewareAllOrders,socketMiddlewareUserOrders} from "../middleware/socket-middleware";
 import {GET_ALL_ORDERS_URL, GET_USER_ORDERS_URL} from "../api/urls";
 
-export const initStore = () => {
+const initStore = () => {
     const composeEnhancers =
         typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
             ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
@@ -15,3 +15,5 @@ export const initStore = () => {
 
     return createStore(rootReducer, enhancer);
 };
+
+export const store = initStore();

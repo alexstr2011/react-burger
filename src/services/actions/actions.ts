@@ -1,6 +1,6 @@
 import {CREATE_ORDER_URL, INGREDIENTS_URL, TOKEN_URL} from '../api/urls';
 import {getCookie, setCookie} from "../../utils/cookies";
-import {TIngredient} from "../types/types";
+import {AppDispatch, AppThunk, TIngredient, TApplicationActions, TConstructorIngredient} from "../types/types";
 
 export const BURGER_INGREDIENTS = {
     LOAD: 'BURGER_INGREDIENTS/LOAD',
@@ -26,8 +26,8 @@ export type TBurgerIngredientsActions =
     | IBurgerIngredientsLoadSuccessAction
     | IBurgerIngredientsLoadFailedAction;
 
-export function burgerIngredientsLoad(): void {
-    return function(dispatch): void {
+export const burgerIngredientsLoad: AppThunk = () => {
+    return function(dispatch: AppDispatch): void {
         dispatch({
             type: BURGER_INGREDIENTS.LOAD
         });
@@ -119,8 +119,8 @@ export type TOrderNumberActions =
     | IOrderNumberLoadFailedAction
     | IOrderNumberDeleteAction;
 
-export function refreshToken(afterRefresh) {
-    return function(dispatch) {
+export const refreshToken: AppThunk = (afterRefresh: TApplicationActions) => {
+    return function(dispatch: AppDispatch): void {
         fetch(TOKEN_URL, {
             method: 'POST',
             headers: {
@@ -150,8 +150,8 @@ export function refreshToken(afterRefresh) {
     }
 }
 
-export function orderNumberLoad(ingredients) {
-    return function(dispatch) {
+export const orderNumberLoad: AppThunk = (ingredients: ReadonlyArray<TConstructorIngredient>) => {
+    return function(dispatch: AppDispatch): void {
         dispatch({
             type: ORDER_NUMBER.LOAD
         });

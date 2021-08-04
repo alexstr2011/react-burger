@@ -6,7 +6,7 @@ import {
     LOGOUT_URL,
     GET_USER_URL
 } from "../api/urls";
-import {TUserInfo} from "../types/types";
+import {AppDispatch, AppThunk, TUserInfo} from "../types/types";
 
 export const USER_ACTIONS = {
     LOGIN: 'USER/LOGIN',
@@ -107,8 +107,8 @@ export type TUserActions =
     | IUserUpdateUserSuccessAction
     | IUserUpdateUserFailedAction;
 
-export function register(email, password, name) {
-    return function(dispatch) {
+export const register: AppThunk = (email: string, password: string, name: string) => {
+    return function(dispatch: AppDispatch): void {
         dispatch({
             type: USER_ACTIONS.REGISTER
         });
@@ -148,8 +148,8 @@ export function register(email, password, name) {
     }
 }
 
-export function login(email, password) {
-    return function(dispatch) {
+export const login: AppThunk = (email: string, password: string) => {
+    return function(dispatch: AppDispatch): void {
         dispatch({
             type: USER_ACTIONS.LOGIN
         });
@@ -189,8 +189,8 @@ export function login(email, password) {
     }
 }
 
-export function logout() {
-    return function(dispatch) {
+export const logout: AppThunk = () => {
+    return function(dispatch: AppDispatch): void {
         dispatch({
             type: USER_ACTIONS.LOGOUT
         });
@@ -230,8 +230,8 @@ export function logout() {
     }
 }
 
-export function getUser() {
-    return function(dispatch) {
+export const getUser: AppThunk = () => {
+    return function(dispatch: AppDispatch): void {
         dispatch({
             type: USER_ACTIONS.GET_USER
         });
@@ -265,8 +265,8 @@ export function getUser() {
     }
 }
 
-export function updateUser(email, password, name) {
-    return function(dispatch) {
+export const updateUser: AppThunk = (email, password, name) => {
+    return function(dispatch: AppDispatch): void {
         dispatch({
             type: USER_ACTIONS.UPDATE_USER
         });

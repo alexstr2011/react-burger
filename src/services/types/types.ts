@@ -1,3 +1,17 @@
+import { ThunkAction } from 'redux-thunk';
+import { ActionCreator } from 'redux';
+import {
+    TypedUseSelectorHook,
+    useDispatch as dispatchHook,
+    useSelector as selectorHook
+} from 'react-redux';
+import {rootReducer} from "../reducers/reducers";
+import {store} from "../store/store";
+import {T_WS_AllOrdersActions, T_WS_UserOrdersActions} from "../actions/orders-actions";
+import {TBurgerConstructorActions, TBurgerIngredientsActions, TOrderNumberActions} from "../actions/actions";
+import {TPasswordActions} from "../actions/password-actions";
+import {TUserActions} from "../actions/user-actions";
+
 export type TOrder = {
     _id: string;
     ingredients: ReadonlyArray<string>;
@@ -27,3 +41,21 @@ export type TUserInfo = {
     name: string;
     email: string;
 };
+
+export type RootState = ReturnType<typeof rootReducer>;
+
+export type TApplicationActions = TBurgerIngredientsActions
+    | TBurgerConstructorActions
+    | TOrderNumberActions
+    | T_WS_AllOrdersActions
+    | T_WS_UserOrdersActions
+    | TPasswordActions
+    | TUserActions;
+
+export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, RootState, unknown, TApplicationActions>>;
+
+export type AppDispatch = typeof store.dispatch;
+
+export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+
+export const useDispatch = () => dispatchHook<AppDispatch | AppThunk>();

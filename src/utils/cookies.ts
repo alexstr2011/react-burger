@@ -2,7 +2,7 @@ interface iCookieProps {
     [key: string]: any;
 }
 
-export function setCookie(name: string, value: string, props: iCookieProps): void {
+export function setCookie(name: string, value: string, props?: iCookieProps): void {
     props = props || {};
     props = {
         path: '/',

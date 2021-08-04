@@ -1,4 +1,5 @@
 import {FORGOT_PASSWORD_URL, RESET_PASSWORD_URL} from "../api/urls";
+import {AppDispatch, AppThunk} from "../types/types";
 
 export const PASSWORD_ACTIONS = {
     FORGOT_PASSWORD: 'PASSWORD/FORGOT_PASSWORD',
@@ -41,8 +42,8 @@ export type TPasswordActions =
     | IPasswordResetSuccessAction
     | IPasswordResetFailedAction;
 
-export function forgotPassword(email) {
-    return function (dispatch) {
+export const forgotPassword: AppThunk = (email: string) => {
+    return function(dispatch: AppDispatch): void {
         dispatch({
             type: PASSWORD_ACTIONS.FORGOT_PASSWORD
         });
@@ -76,8 +77,8 @@ export function forgotPassword(email) {
     }
 }
 
-export function resetPassword(password, token) {
-    return function (dispatch) {
+export const resetPassword: AppThunk = (password: string, token: string) => {
+    return function(dispatch: AppDispatch): void {
         dispatch({
             type: PASSWORD_ACTIONS.RESET_PASSWORD
         });
