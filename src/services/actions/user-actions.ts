@@ -231,7 +231,7 @@ export const logout: AppThunk = () => {
 }
 
 export const getUser: AppThunk = () => {
-    return function(dispatch: AppDispatch): void {
+    return function(dispatch: AppDispatch | AppThunk): void {
         dispatch({
             type: USER_ACTIONS.GET_USER
         });
@@ -266,7 +266,7 @@ export const getUser: AppThunk = () => {
 }
 
 export const updateUser: AppThunk = (email, password, name) => {
-    return function(dispatch: AppDispatch): void {
+    return function(dispatch: AppDispatch | AppThunk): void {
         dispatch({
             type: USER_ACTIONS.UPDATE_USER
         });

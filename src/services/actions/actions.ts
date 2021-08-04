@@ -151,7 +151,7 @@ export const refreshToken: AppThunk = (afterRefresh: TApplicationActions) => {
 }
 
 export const orderNumberLoad: AppThunk = (ingredients: ReadonlyArray<TConstructorIngredient>) => {
-    return function(dispatch: AppDispatch): void {
+    return function(dispatch: AppDispatch | AppThunk): void {
         dispatch({
             type: ORDER_NUMBER.LOAD
         });
