@@ -6,6 +6,7 @@ import {
     LOGOUT_URL,
     GET_USER_URL
 } from "../api/urls";
+import {TUserInfo} from "../types/types";
 
 export const USER_ACTIONS = {
     LOGIN: 'USER/LOGIN',
@@ -24,6 +25,87 @@ export const USER_ACTIONS = {
     UPDATE_USER_SUCCESS: 'USER/UPDATE_USER_SUCCESS',
     UPDATE_USER_FAILED: 'USER/UPDATE_USER_FAILED'
 };
+
+export interface IUserLoginAction {
+    readonly type: typeof USER_ACTIONS.LOGIN;
+}
+
+export interface IUserLoginSuccessAction {
+    readonly type: typeof USER_ACTIONS.LOGIN_SUCCESS;
+    readonly user: TUserInfo;
+}
+
+export interface IUserLoginFailedAction {
+    readonly type: typeof USER_ACTIONS.LOGIN_FAILED;
+}
+
+export interface IUserLogoutAction {
+    readonly type: typeof USER_ACTIONS.LOGOUT;
+}
+
+export interface IUserLogoutSuccessAction {
+    readonly type: typeof USER_ACTIONS.LOGOUT_SUCCESS;
+}
+
+export interface IUserLogoutFailedAction {
+    readonly type: typeof USER_ACTIONS.LOGOUT_FAILED;
+}
+
+export interface IUserRegisterAction {
+    readonly type: typeof USER_ACTIONS.REGISTER;
+}
+
+export interface IUserRegisterSuccessAction {
+    readonly type: typeof USER_ACTIONS.REGISTER_SUCCESS;
+    readonly user: TUserInfo;
+}
+
+export interface IUserRegisterFailedAction {
+    readonly type: typeof USER_ACTIONS.REGISTER_FAILED;
+}
+
+export interface IUserGetUserAction {
+    readonly type: typeof USER_ACTIONS.GET_USER;
+}
+
+export interface IUserGetUserSuccessAction {
+    readonly type: typeof USER_ACTIONS.GET_USER_SUCCESS;
+    readonly user: TUserInfo;
+}
+
+export interface IUserGetUserFailedAction {
+    readonly type: typeof USER_ACTIONS.GET_USER_FAILED;
+}
+
+export interface IUserUpdateUserAction {
+    readonly type: typeof USER_ACTIONS.UPDATE_USER;
+}
+
+export interface IUserUpdateUserSuccessAction {
+    readonly type: typeof USER_ACTIONS.UPDATE_USER_SUCCESS;
+    readonly user: TUserInfo;
+}
+
+export interface IUserUpdateUserFailedAction {
+    readonly type: typeof USER_ACTIONS.UPDATE_USER_FAILED;
+}
+
+export type TUserActions =
+    IUserLoginAction
+    | IUserLoginSuccessAction
+    | IUserLoginFailedAction
+    | IUserLogoutAction
+    | IUserLogoutSuccessAction
+    | IUserLogoutFailedAction
+    | IUserRegisterAction
+    | IUserRegisterSuccessAction
+    | IUserRegisterFailedAction
+    | IUserGetUserAction
+    | IUserGetUserSuccessAction
+    | IUserGetUserFailedAction
+    | IUserUpdateUserAction
+    | IUserUpdateUserSuccessAction
+    | IUserUpdateUserFailedAction;
 
 export function register(email, password, name) {
     return function(dispatch) {
