@@ -7,8 +7,8 @@ export const BURGER_INGREDIENTS = {
     LOAD_FAILED: 'BURGER_INGREDIENTS/LOAD_FAILED'
 };
 
-export function burgerIngredientsLoad() {
-    return function(dispatch) {
+export function burgerIngredientsLoad(): void {
+    return function(dispatch): void {
         dispatch({
             type: BURGER_INGREDIENTS.LOAD
         });

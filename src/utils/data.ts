@@ -1,25 +1,10 @@
-export const INGREDIENT_TYPES = [
-    {
-        type: 'bun',
-        name: 'Булки'
-    },
-    {
-        type: 'sauce',
-        name: 'Соусы'
-    },
-    {
-        type: 'main',
-        name: 'Начинки'
-    }
-];
-
-export const ORDER_STATUSES = {
-    done: 'Выполнен',
-    created: 'Создан',
-    pending: 'Готовится',
-    cancelled: 'Отменен'
+export enum ORDER_STATUSES {
+    done = 'Выполнен',
+    created = 'Создан',
+    pending = 'Готовится'
 }
 
+/*
 const data = [
     {
         "_id": "60666c42cc7b410027a1a9b1",
@@ -232,3 +217,4 @@ const data = [
         "__v": 0
     }
 ];
+ */
