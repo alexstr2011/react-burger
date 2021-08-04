@@ -9,6 +9,38 @@ export const PASSWORD_ACTIONS = {
     RESET_PASSWORD_FAILED: 'PASSWORD/RESET_PASSWORD_FAILED'
 };
 
+export interface IPasswordForgotAction {
+    readonly type: typeof PASSWORD_ACTIONS.FORGOT_PASSWORD;
+}
+
+export interface IPasswordForgotSuccessAction {
+    readonly type: typeof PASSWORD_ACTIONS.FORGOT_PASSWORD_SUCCESS;
+}
+
+export interface IPasswordForgotFailedAction {
+    readonly type: typeof PASSWORD_ACTIONS.FORGOT_PASSWORD_FAILED;
+}
+
+export interface IPasswordResetAction {
+    readonly type: typeof PASSWORD_ACTIONS.RESET_PASSWORD;
+}
+
+export interface IPasswordResetSuccessAction {
+    readonly type: typeof PASSWORD_ACTIONS.RESET_PASSWORD_SUCCESS;
+}
+
+export interface IPasswordResetFailedAction {
+    readonly type: typeof PASSWORD_ACTIONS.RESET_PASSWORD_FAILED;
+}
+
+export type TPasswordActions =
+    IPasswordForgotAction
+    | IPasswordForgotSuccessAction
+    | IPasswordForgotFailedAction
+    | IPasswordResetAction
+    | IPasswordResetSuccessAction
+    | IPasswordResetFailedAction;
+
 export function forgotPassword(email) {
     return function (dispatch) {
         dispatch({

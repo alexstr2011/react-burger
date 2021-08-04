@@ -1,6 +1,15 @@
-import { PASSWORD_ACTIONS } from '../actions/password-actions';
+import {PASSWORD_ACTIONS, TPasswordActions} from '../actions/password-actions';
 
-const passwordInitialState = {
+type TPasswordState = {
+    readonly isForgot: boolean;
+    readonly isForgotLoading: boolean;
+    readonly isForgotError: boolean;
+    readonly isReset: boolean;
+    readonly isResetLoading: boolean;
+    readonly isResetError: boolean;
+};
+
+const passwordInitialState: TPasswordState = {
     isForgot: false,
     isForgotLoading: false,
     isForgotError: false,
@@ -9,7 +18,7 @@ const passwordInitialState = {
     isResetError: false
 };
 
-export const passwordReducer = (state = passwordInitialState, action) => {
+export const passwordReducer = (state = passwordInitialState, action: TPasswordActions) => {
     switch(action.type) {
         case PASSWORD_ACTIONS.FORGOT_PASSWORD:
             return {...state, isReset: false, isForgot: false, isForgotLoading: true, isForgotError: false}

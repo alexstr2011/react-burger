@@ -24,6 +24,6 @@ export type TIngredient = {
 export type TConstructorIngredient = TIngredient & { key: string };
 
 export type TUserInfo = {
-    name: null | string;
-    email: null | string;
+    name: string;
+    email: string;
 };
