@@ -20,7 +20,7 @@ const initialState: TOrdersState = {
     data: null
 };
 
-export const allOrdersReducer = (state = initialState, action: T_WS_AllOrdersActions) => {
+export const allOrdersReducer = (state = initialState, action: T_WS_AllOrdersActions): TOrdersState => {
     switch (action.type) {
         case WS_ALL_ORDERS_ACTION.CONNECTION_SUCCESS:
             return {
@@ -51,7 +51,7 @@ export const allOrdersReducer = (state = initialState, action: T_WS_AllOrdersAct
     }
 };
 
-export const userOrdersReducer = (state = initialState, action: T_WS_UserOrdersActions) => {
+export const userOrdersReducer = (state = initialState, action: T_WS_UserOrdersActions): TOrdersState => {
     switch (action.type) {
         case WS_USER_ORDERS_ACTION.CONNECTION_SUCCESS:
             return {

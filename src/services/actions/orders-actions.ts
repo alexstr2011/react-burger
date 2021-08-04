@@ -31,7 +31,7 @@ export interface I_WS_AllOrdersGetMessageAction {
 }
 
 export type T_WS_AllOrdersActions =
-    | I_WS_AllOrdersConnectionStartAction
+    I_WS_AllOrdersConnectionStartAction
     | I_WS_AllOrdersConnectionSuccessAction
     | I_WS_AllOrdersConnectionErrorAction
     | I_WS_AllOrdersConnectionClosedAction
