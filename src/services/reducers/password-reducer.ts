@@ -18,7 +18,7 @@ const passwordInitialState: TPasswordState = {
     isResetError: false
 };
 
-export const passwordReducer = (state = passwordInitialState, action: TPasswordActions) => {
+export const passwordReducer = (state = passwordInitialState, action: TPasswordActions): TPasswordState => {
     switch(action.type) {
         case PASSWORD_ACTIONS.FORGOT_PASSWORD:
             return {...state, isReset: false, isForgot: false, isForgotLoading: true, isForgotError: false}

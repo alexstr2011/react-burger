@@ -25,7 +25,7 @@ const userInitialState: TUserState = {
     isError: false
 };
 
-export const userReducer = (state = userInitialState, action: TUserActions) => {
+export const userReducer = (state = userInitialState, action: TUserActions): TUserState => {
     switch(action.type) {
         case USER_ACTIONS.LOGIN:
             return {...state, user: userInitialState.user, isLoading: true, isError: false}

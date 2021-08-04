@@ -50,7 +50,7 @@ const burgerIngredientsInitialState: TBurgerIngredientsState = {
 };
 
 export const burgerIngredientsReducer = (state = burgerIngredientsInitialState,
-                                         action: TBurgerIngredientsActions) => {
+                                         action: TBurgerIngredientsActions):TBurgerIngredientsState => {
     switch(action.type) {
         case BURGER_INGREDIENTS.LOAD:
             return {...state, data: [], isLoading: true, isError: false}
@@ -79,7 +79,7 @@ const burgerConstructorInitialState: TBurgerConstructorState = {
 };
 
 export const burgerConstructorReducer = (state = burgerConstructorInitialState,
-                                         action: TBurgerConstructorActions) => {
+                                         action: TBurgerConstructorActions): TBurgerConstructorState => {
     switch(action.type) {
         case BURGER_CONSTRUCTOR.ADD: {
             const key = (action as IBurgerConstructorAddAction).ingredient._id
@@ -125,20 +125,20 @@ export const burgerConstructorReducer = (state = burgerConstructorInitialState,
     }
 }
 
-type TOrderNumberInitialState = {
+type TOrderNumberState = {
     readonly number: null | string;
     readonly isLoading: boolean;
     readonly isError: boolean;
 };
 
-const orderNumberInitialState: TOrderNumberInitialState = {
+const orderNumberInitialState: TOrderNumberState = {
     number: null,
     isLoading: false,
     isError: false
 };
 
 export const orderNumberReducer = (state = orderNumberInitialState,
-                                   action: TOrderNumberActions) => {
+                                   action: TOrderNumberActions): TOrderNumberState => {
     switch(action.type) {
         case ORDER_NUMBER.LOAD:
             return {...state, number: null, isLoading: true, isError: false}
