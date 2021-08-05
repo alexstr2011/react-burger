@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {NavLink} from "react-router-dom";
 import styles from "./profile-menu.module.css";
-import {useDispatch} from "react-redux";
+import {useDispatch} from '../../services/types/types';
 import {logout} from "../../services/actions/user-actions";
 
-function ProfileMenu() {
+const ProfileMenu: FC = () => {
     const dispatch = useDispatch();
     const logoutHandler = () => {
         dispatch(logout());
@@ -50,6 +50,6 @@ function ProfileMenu() {
             </p>
         </section>
     );
-}
+};
 
 export default ProfileMenu;

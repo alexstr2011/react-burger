@@ -1,9 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {FC} from 'react';
 import styles from './order-details.module.css';
 import checkMark from '../../images/checkMark.png';
 
-function OrderDetails({orderNumber}) {
+interface IOrderDetailsProps {
+    orderNumber: string;
+};
+
+const OrderDetails: FC<IOrderDetailsProps> = ({orderNumber}) => {
     return (
         <section className={styles.order}>
             <p className="text text_type_digits-large mt-8">{orderNumber}</p>
@@ -20,9 +23,5 @@ function OrderDetails({orderNumber}) {
         </section>
     );
 }
-
-OrderDetails.propTypes = {
-    orderNumber: PropTypes.number.isRequired
-};
 
 export default OrderDetails;

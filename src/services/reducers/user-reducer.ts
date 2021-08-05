@@ -8,10 +8,7 @@ import {
 import {TUserInfo} from "../types/types";
 
 type TUserState = {
-    readonly user: {
-        readonly name: null | string;
-        readonly email: null | string;
-    };
+    readonly user: TUserInfo;
     readonly isLoading: boolean;
     readonly isError: boolean;
 };

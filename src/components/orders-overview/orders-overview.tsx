@@ -1,8 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {FC} from 'react';
 import styles from './orders-overview.module.css';
+import {TOrders} from "../../services/types/types";
 
-function OrdersOverview({data}) {
+interface IOrdersOverviewProps {
+    data: null | TOrders;
+}
+
+const OrdersOverview: FC<IOrdersOverviewProps> = ({data}) => {
         const ordersDone = data && data.orders.filter(order => order.status === 'done')
             .filter((_,index) => index < 10);
         const ordersPending = data && data.orders.filter(order => order.status === 'pending')
@@ -56,17 +60,6 @@ function OrdersOverview({data}) {
             <p className="text text_type_digits-large">{data ? data.totalToday : '-'}</p>
         </section>
     );
-}
-
-OrdersOverview.propTypes = {
-    data: PropTypes.shape({
-        orders: PropTypes.arrayOf(PropTypes.shape({
-            _id: PropTypes.string.isRequired,
-            number: PropTypes.number.isRequired
-        })).isRequired,
-        total: PropTypes.number.isRequired,
-        totalToday: PropTypes.number.isRequired,
-    })
-}
+};
 
 export default OrdersOverview;

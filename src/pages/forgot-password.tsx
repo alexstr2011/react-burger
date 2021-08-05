@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Link, Redirect, useLocation} from "react-router-dom";
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { forgotPassword } from '../services/actions/password-actions';
 import styles from './forgot-password.module.css';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from '../services/types/types';
 
-function ForgotPasswordPage() {
+const ForgotPasswordPage: FC = () => {
     const isForgotPassword = useSelector(store => store.passwordReducer.isForgot);
     const location = useLocation();
     const [email, setEmail] = React.useState('');
@@ -63,6 +63,6 @@ function ForgotPasswordPage() {
             </section>
         </section>
     );
-}
+};
 
 export default ForgotPasswordPage;

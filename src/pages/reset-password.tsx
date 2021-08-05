@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './reset-password.module.css';
 import {Link, Redirect, useLocation} from "react-router-dom";
 import {resetPassword} from '../services/actions/password-actions';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../services/types/types";
 
-function ResetPasswordPage() {
+const ResetPasswordPage: FC = () => {
     const {isForgot, isReset} = useSelector(store => store.passwordReducer);
     const location = useLocation();
 
@@ -48,8 +48,7 @@ function ResetPasswordPage() {
                     <PasswordInput
                         name={'password'}
                         value={password}
-                        onChange={changePasswordHandler}
-                        placeholder='Введите новый пароль'/>
+                        onChange={changePasswordHandler}/>
                 </div>
                 <div className={styles.inputWrapper + ' mb-6'}>
                     <Input

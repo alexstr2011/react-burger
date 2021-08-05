@@ -1,11 +1,11 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, {FC} from 'react';
+import { useDispatch } from '../services/types/types';
 import { Link } from 'react-router-dom';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import {login} from "../services/actions/user-actions";
 import styles from './login.module.css';
 
-function LoginPage() {
+const LoginPage: FC = () => {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -72,6 +72,6 @@ function LoginPage() {
             </section>
         </section>
     );
-}
+};
 
 export default LoginPage;

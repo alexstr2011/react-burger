@@ -6,12 +6,12 @@ import {
     WS_ALL_ORDERS_ACTION,
     WS_USER_ORDERS_ACTION
 } from '../actions/orders-actions';
-import {TOrder} from "../types/types";
+import {TOrders} from "../types/types";
 
 type TOrdersState = {
-    wsConnected: boolean;
-    error: null | string,
-    data: null | TOrder;
+    readonly wsConnected: boolean;
+    readonly error: null | string,
+    readonly data: null | TOrders;
 };
 
 const initialState: TOrdersState = {

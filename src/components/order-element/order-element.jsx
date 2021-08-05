@@ -69,6 +69,7 @@ function OrderElement({data, isHistory = false}) {
     );
 }
 
+/*
 OrderElement.propTypes = {
     data: PropTypes.shape({
         ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -79,5 +80,5 @@ OrderElement.propTypes = {
     }).isRequired,
     isHistory: PropTypes.bool
 }
-
+*/
 export default OrderElement;

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
+import {TOrder, useDispatch, useSelector} from "../../services/types/types";
 import { useParams,useLocation } from 'react-router-dom';
 import styles from './order-info.module.css';
 import {WS_ALL_ORDERS_ACTION, WS_USER_ORDERS_ACTION} from "../../services/actions/orders-actions";
@@ -8,10 +8,10 @@ import {ORDER_STATUSES} from "../../utils/data";
 import {formatOrderDate} from "../../utils/formatDate";
 import {getCookie} from "../../utils/cookies";
 
-function OrderInfo() {
+const OrderInfo: FC = () => {
     const dispatch = useDispatch();
     const location = useLocation();
-    const { id } = useParams();
+    const { id } = useParams<{id: string}>();
     const allIngredients = useSelector(store => store.burgerIngredientsReducer.data);
 
     const isFeed = location.pathname.includes('/feed');
@@ -33,7 +33,7 @@ function OrderInfo() {
 
     const data = isFeed ? allOrdersReducer.data : userOrdersReducer.data;
 
-    let order;
+    let order: TOrder | undefined;
     if (id && data && data.orders) {
         order = data.orders.find(order => order._id === id);
     }
@@ -48,8 +48,12 @@ function OrderInfo() {
 
     const sum = React.useMemo(()=>{
         if (!ingredients) return 0;
-        return ingredients.reduce((accum, ingredient) => accum + ingredient.price, 0);
+        return ingredients.reduce((accum, ingredient) =>
+            accum + (ingredient?.price || 0), 0);
     }, [ingredients]);
+
+    const statusDescription: string | undefined =
+        Object.values(ORDER_STATUSES).find(status => order && status === order.status);
 
     return (
         order ? (
@@ -59,26 +63,29 @@ function OrderInfo() {
                     {order.name}
                 </p>
                 <p className={"text text_type_main-default mb-15 " + styles.status}>
-                    {ORDER_STATUSES[order.status]}
+                    { statusDescription }
                 </p>
                 <p className="text text_type_main-medium mb-6">
                     Состав:
                 </p>
                 <ul className={styles.list + ' scrollbar'}>
-                    {ingredients.map((ingredient, index) => (
-                        <li className={styles.row} key={ingredient._id + index}>
-                            <div className={styles.pictureContainer}>
-                                <img className={styles.picture} src={ingredient.image} alt={ingredient.name}/>
-                            </div>
-                            <p className={"text text_type_main-default ml-4 mr-4 " + styles.ingredient}>
-                                {ingredient.name}
-                            </p>
-                            <p className={"text text_type_digits-default mr-2 " + styles.toTheRight}>{ingredient.price}</p>
-                            <div className='mr-2'>
-                                <CurrencyIcon type="primary"/>
-                            </div>
-
-                        </li>
+                    {ingredients && ingredients.map((ingredient, index) => (
+                        ingredient && (
+                            <li className={styles.row} key={ingredient._id + index}>
+                                <div className={styles.pictureContainer}>
+                                    <img className={styles.picture} src={ingredient.image} alt={ingredient.name}/>
+                                </div>
+                                <p className={"text text_type_main-default ml-4 mr-4 " + styles.ingredient}>
+                                    {ingredient.name}
+                                </p>
+                                <p className={"text text_type_digits-default mr-2 " + styles.toTheRight}>
+                                    {ingredient.price}
+                                </p>
+                                <div className='mr-2'>
+                                    <CurrencyIcon type="primary"/>
+                                </div>
+                            </li>
+                        )
                     ))}
                 </ul>
                 <div className={styles.row + ' mt-10 mb-10'}>
@@ -91,6 +98,6 @@ function OrderInfo() {
             </section>
         ) : (<p>Loading...</p>)
     );
-}
+};
 
 export default OrderInfo;

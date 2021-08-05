@@ -1,4 +1,4 @@
-import {TOrder} from "../types/types";
+import {TOrders} from "../types/types";
 
 export const WS_ALL_ORDERS_ACTION = {
     CONNECTION_START: 'WS_ALL_ORDERS_ACTION/CONNECTION_START',
@@ -27,7 +27,7 @@ export interface I_WS_AllOrdersConnectionClosedAction {
 
 export interface I_WS_AllOrdersGetMessageAction {
     readonly type: typeof WS_ALL_ORDERS_ACTION.GET_MESSAGE;
-    readonly payload: TOrder;
+    readonly payload: TOrders;
 }
 
 export type T_WS_AllOrdersActions =
@@ -64,7 +64,7 @@ export interface I_WS_UserOrdersConnectionClosedAction {
 
 export interface I_WS_UserOrdersGetMessageAction {
     readonly type: typeof WS_USER_ORDERS_ACTION.GET_MESSAGE;
-    readonly payload: TOrder;
+    readonly payload: TOrders;
 }
 
 export type T_WS_UserOrdersActions =

@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import OrderElement from "../components/order-element/order-element";
 import ProfileMenu from "../components/profile-menu/profile-menu";
 import styles from './history.module.css';
 import {Link, useLocation} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../services/types/types";
 import {WS_USER_ORDERS_ACTION} from "../services/actions/orders-actions";
 import {getCookie} from "../utils/cookies";
 
-function HistoryPage() {
+const HistoryPage: FC = () => {
     const location = useLocation();
     const dispatch = useDispatch();
 
@@ -40,6 +40,6 @@ function HistoryPage() {
         </div>
 
     );
-}
+};
 
 export default HistoryPage;

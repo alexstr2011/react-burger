@@ -1,12 +1,12 @@
-import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import React, {FC} from 'react';
+import {useDispatch, useSelector} from "../services/types/types";
 import { Link, useLocation } from 'react-router-dom';
 import OrdersOverview from "../components/orders-overview/orders-overview";
 import OrderElement from "../components/order-element/order-element";
 import styles from './feed.module.css';
 import {WS_ALL_ORDERS_ACTION} from "../services/actions/orders-actions";
 
-function FeedPage() {
+const FeedPage: FC = () => {
     const location = useLocation();
     const dispatch = useDispatch();
 
@@ -42,6 +42,6 @@ function FeedPage() {
             </div>
         </div>
     );
-}
+};
 
 export default FeedPage;

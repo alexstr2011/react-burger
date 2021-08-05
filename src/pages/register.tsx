@@ -1,11 +1,11 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, {FC} from 'react';
+import { useDispatch } from '../services/types/types';
 import {Link} from "react-router-dom";
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { register } from '../services/actions/user-actions';
 import styles from './register.module.css';
 
-function RegisterPage() {
+const RegisterPage: FC = () => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [name, setName] = React.useState('');
