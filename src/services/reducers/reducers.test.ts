@@ -18,7 +18,7 @@ const ingredientTypesState = [
 
 describe('ingredientTypesReducer', () => {
     it('should return the initial state', () => {
-        const newState = ingredientTypesReducer(undefined, {});
+        const newState = ingredientTypesReducer(undefined);
         expect(newState).toEqual(ingredientTypesState);
     });
 });
@@ -61,11 +61,6 @@ const burgerIngredientsData = [
 ];
 
 describe('burgerIngredientsReducer', () => {
-    it('should return the initial state', () => {
-        const newState = burgerIngredientsReducer(undefined, {});
-        expect(newState).toEqual(burgerIngredientsState);
-    });
-
     it('should handle LOAD', () => {
         const newState = burgerIngredientsReducer(burgerIngredientsState, {type: BURGER_INGREDIENTS.LOAD});
         expect(newState).toEqual({
@@ -109,7 +104,8 @@ const bunData = {
     "image": "https://code.s3.yandex.net/react/code/bun-02.png",
     "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
     "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
-    "__v": 0
+    "__v": 0,
+    "key": "1"
 };
 
 const notBunData = {
@@ -124,7 +120,8 @@ const notBunData = {
     "image": "https://code.s3.yandex.net/react/code/meat-04.png",
     "image_mobile": "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
     "image_large": "https://code.s3.yandex.net/react/code/meat-04-large.png",
-    "__v": 0
+    "__v": 0,
+    "key": "1"
 };
 const notBunData2 = {
     "_id": "60666c42cc7b410027a1a9b6",
@@ -138,7 +135,8 @@ const notBunData2 = {
     "image": "https://code.s3.yandex.net/react/code/meat-01.png",
     "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
     "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
-    "__v": 0
+    "__v": 0,
+    "key": "1"
 };
 const notBunData3 = {
     "_id": "60666c42cc7b410027a1a9b7",
@@ -152,15 +150,11 @@ const notBunData3 = {
     "image": "https://code.s3.yandex.net/react/code/sauce-02.png",
     "image_mobile": "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
     "image_large": "https://code.s3.yandex.net/react/code/sauce-02-large.png",
-    "__v": 0
+    "__v": 0,
+    "key": "1"
 };
 
 describe('burgerConstructorReducer', () => {
-    it('should return the initial state', () => {
-        const newState = burgerConstructorReducer(undefined, {});
-        expect(newState).toEqual(burgerConstructorState);
-    });
-
     it('should handle ADD with bun', () => {
         const localId = 1;
         const action = {
@@ -257,11 +251,6 @@ const orderNumberState = {
 };
 
 describe('orderNumberReducer', () => {
-    it('should return the initial state', () => {
-        const newState = orderNumberReducer(undefined, {});
-        expect(newState).toEqual(orderNumberState);
-    });
-
     it('should handle LOAD', () => {
         const newState = orderNumberReducer(orderNumberState, {type: ORDER_NUMBER.LOAD});
         expect(newState).toEqual({
@@ -279,10 +268,10 @@ describe('orderNumberReducer', () => {
     });
 
     it('should handle LOAD_SUCCESS', () => {
-        const newState = orderNumberReducer(orderNumberState, {type: ORDER_NUMBER.LOAD_SUCCESS, number: 1});
+        const newState = orderNumberReducer(orderNumberState, {type: ORDER_NUMBER.LOAD_SUCCESS, number: "1"});
         expect(newState).toEqual({
             ...orderNumberState,
-            number: 1
+            number: "1"
         });
     });
 

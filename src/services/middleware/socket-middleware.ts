@@ -1,12 +1,11 @@
+import {MiddlewareAPI, AnyAction} from 'redux';
 import {WS_ALL_ORDERS_ACTION, WS_USER_ORDERS_ACTION} from '../actions/orders-actions';
-import {refreshToken} from "../actions/actions";
-import {getCookie} from "../../utils/cookies";
 
-export const socketMiddlewareAllOrders = (wsUrl) => {
-    return store => {
-        let socket = null;
+export const socketMiddlewareAllOrders = (wsUrl: string) => {
+    return (store: MiddlewareAPI) => {
+        let socket: WebSocket | null = null;
 
-        return next => action => {
+        return (next: (arg: AnyAction) => void) => (action: AnyAction) => {
             const { dispatch } = store;
             const { type } = action;
 
@@ -49,11 +48,11 @@ export const socketMiddlewareAllOrders = (wsUrl) => {
     };
 };
 
-export const socketMiddlewareUserOrders = (wsUrl) => {
-    return store => {
-        let socket = null;
+export const socketMiddlewareUserOrders = (wsUrl: string) => {
+    return (store: MiddlewareAPI) => {
+        let socket: WebSocket | null = null;
 
-        return next => action => {
+        return (next: (arg: AnyAction) => void) => (action: AnyAction) => {
             const { dispatch } = store;
             const { type, token } = action;
 
@@ -78,17 +77,10 @@ export const socketMiddlewareUserOrders = (wsUrl) => {
 
                 socket.onmessage = event => {
                     const parsedData = JSON.parse(event.data);
-                    if (parsedData.message && parsedData.message === "Invalid or missing token") {
-                        dispatch(refreshToken({
-                            type: WS_USER_ORDERS_ACTION.CONNECTION_START,
-                            token: getCookie('accessToken')
-                        }));
-                    } else {
-                        dispatch({
-                            type: WS_USER_ORDERS_ACTION.GET_MESSAGE,
-                            payload: parsedData
-                        });
-                    }
+                    dispatch({
+                        type: WS_USER_ORDERS_ACTION.GET_MESSAGE,
+                        payload: parsedData
+                    });
                 };
 
                 socket.onclose = event => {
@@ -103,3 +95,4 @@ export const socketMiddlewareUserOrders = (wsUrl) => {
         };
     };
 };
+

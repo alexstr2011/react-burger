@@ -11,11 +11,6 @@ const state = {
 };
 
 describe('passwordReducer', () => {
-    it('should return the initial state', () => {
-        const newState = passwordReducer(undefined, {});
-        expect(newState).toEqual(state);
-    });
-
     it('should handle FORGOT_PASSWORD', () => {
         const newState = passwordReducer(state, {type: PASSWORD_ACTIONS.FORGOT_PASSWORD});
         expect(newState).toEqual({

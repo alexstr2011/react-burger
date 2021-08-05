@@ -1,7 +1,7 @@
-import {allOrdersReducer, userOrdersReducer} from "./orders-reducer";
-import { WS_ALL_ORDERS_ACTION, WS_USER_ORDERS_ACTION } from '../actions/orders-actions';
+import {allOrdersReducer, TOrdersState, userOrdersReducer} from "./orders-reducer";
+import {WS_ALL_ORDERS_ACTION, WS_USER_ORDERS_ACTION} from '../actions/orders-actions';
 
-const state = {
+const state: TOrdersState = {
     wsConnected: false,
     error: null,
     data: null
@@ -19,6 +19,7 @@ const allOrdersData = {
             ],
             "_id": "",
             "status": "done",
+            "name": "Тест",
             "number": 0,
             "createdAt": "2021-06-23T14:43:22.587Z",
             "updatedAt": "2021-06-23T14:43:22.603Z"
@@ -29,11 +30,6 @@ const allOrdersData = {
 };
 
 describe('allOrdersReducer', () => {
-    it('should return the initial state', () => {
-        const newState = allOrdersReducer(undefined, {});
-        expect(newState).toEqual(state);
-    });
-
     it ('should handle CONNECTION_SUCCESS', () => {
         const newState = allOrdersReducer(state, {type: WS_ALL_ORDERS_ACTION.CONNECTION_SUCCESS});
         expect(newState).toEqual({
@@ -82,6 +78,7 @@ const userOrdersDate = {
             ],
             "_id": "",
             "status": "done",
+            "name": "Тест",
             "number": 1,
             "createdAt": "2021-06-23T20:11:01.403Z",
             "updatedAt": "2021-06-23T20:11:01.406Z"
@@ -92,6 +89,7 @@ const userOrdersDate = {
             ],
             "_id": "",
             "status": "done",
+            "name": "Тест",
             "number": 3,
             "createdAt": "2021-06-23T20:13:23.654Z",
             "updatedAt": "2021-06-23T20:13:23.657Z"
@@ -102,11 +100,6 @@ const userOrdersDate = {
 };
 
 describe('userOrdersReducer', () => {
-    it('should return the initial state', () => {
-        const newState = userOrdersReducer(undefined, {});
-        expect(newState).toEqual(state);
-    });
-
     it ('should handle CONNECTION_SUCCESS', () => {
         const newState = userOrdersReducer(state, {type: WS_USER_ORDERS_ACTION.CONNECTION_SUCCESS});
         expect(newState).toEqual({

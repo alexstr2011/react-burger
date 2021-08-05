@@ -16,11 +16,6 @@ const userData = {
 };
 
 describe('userReducer', () => {
-    it('should return the initial state', () => {
-        const newState = userReducer(undefined, {});
-        expect(newState).toEqual(state);
-    });
-
     it('should handle LOGIN', () => {
         const newState = userReducer(state, {type: USER_ACTIONS.LOGIN});
         expect(newState).toEqual({

@@ -8,7 +8,7 @@ import {
 } from '../actions/orders-actions';
 import {TOrders} from "../types/types";
 
-type TOrdersState = {
+export type TOrdersState = {
     readonly wsConnected: boolean;
     readonly error: null | string,
     readonly data: null | TOrders;
