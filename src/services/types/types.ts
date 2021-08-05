@@ -11,7 +11,7 @@ import {T_WS_AllOrdersActions, T_WS_UserOrdersActions} from "../actions/orders-a
 import {TBurgerConstructorActions, TBurgerIngredientsActions, TOrderNumberActions} from "../actions/actions";
 import {TPasswordActions} from "../actions/password-actions";
 import {TUserActions} from "../actions/user-actions";
-import {ORDER_STATUSES} from "../../utils/data";
+import {Location} from "history";
 
 export type TOrder = {
     _id: string;
@@ -48,6 +48,10 @@ export type TUserInfo = {
     name: null | string;
     email: null | string;
 };
+
+export interface ICustomLocation extends Location {
+    background?: any;
+}
 
 export type RootState = ReturnType<typeof rootReducer>;
 

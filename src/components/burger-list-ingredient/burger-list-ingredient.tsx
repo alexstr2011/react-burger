@@ -1,10 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {FC} from 'react';
 import { useDrag } from 'react-dnd';
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-list-ingredient.module.css';
+import {TIngredient} from "../../services/types/types";
 
-function BurgerListIngredient({data, ingredientAmount}) {
+interface IBurgerListIngredientProps {
+    data: TIngredient;
+    ingredientAmount: number;
+}
+
+const BurgerListIngredient: FC<IBurgerListIngredientProps> = ({data, ingredientAmount}) => {
     const [{isDrag}, dragRef] = useDrag({
         type: 'ingredient',
         item: data,
@@ -30,16 +35,6 @@ function BurgerListIngredient({data, ingredientAmount}) {
             <Counter count={ingredientAmount ? ingredientAmount : 0} size="default" />
         </div>
     );
-}
-
-BurgerListIngredient.propTypes = {
-    data: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired
-    }).isRequired,
-    ingredientAmount: PropTypes.number
-}
+};
 
 export default BurgerListIngredient;

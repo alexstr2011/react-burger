@@ -1,12 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import React, {FC} from 'react';
+import {TConstructorIngredient, useDispatch} from '../../services/types/types';
 import { useDrag, useDrop } from 'react-dnd';
 import { BURGER_CONSTRUCTOR } from '../../services/actions/actions';
 import styles from '../burger-constructor-element/burger-constructor-element.module.css';
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-function BurgerConstructorElement({element, type, index}) {
+interface IBurgerConstructorElementProps {
+    element: TConstructorIngredient;
+    type?: "top" | "bottom";
+    index?: number;
+}
+
+const BurgerConstructorElement: FC<IBurgerConstructorElementProps> =
+    ({element, type, index}) => {
+
     const dispatch = useDispatch();
 
     const closeHandler = () => {
@@ -17,7 +24,7 @@ function BurgerConstructorElement({element, type, index}) {
         })
     };
 
-    const ref = React.useRef(null);
+    const ref = React.useRef<HTMLDivElement>(null);
 
     const [{isDrag}, dragRef] = useDrag({
         type: 'sorting',
@@ -29,28 +36,30 @@ function BurgerConstructorElement({element, type, index}) {
 
     const [{isHover}, dropRef] = useDrop({
         accept: 'sorting',
-        drop(data, monitor) {
+        drop(data: { index: number }, monitor) {
             const dragIndex = data.index;
             const dropIndex = index;
-            if (dragIndex === dropIndex) {
+            if (dragIndex === dropIndex || (!dropIndex && dropIndex!== 0)) {
                 return;
             }
             const dropBoundingRect = ref.current?.getBoundingClientRect();
-            const dropMiddleY = (dropBoundingRect.bottom - dropBoundingRect.top) / 2;
-            const clientOffset = monitor.getClientOffset();
-            if (dropBoundingRect.top + dropMiddleY > clientOffset.y) {
-                dispatch({
-                    type: BURGER_CONSTRUCTOR.MOVE,
-                    indexFrom: dragIndex,
-                    indexTo: dropIndex
-                });
-            } else {
-                if (dragIndex !== dropIndex + 1) {
+            if (dropBoundingRect) {
+                const dropMiddleY = (dropBoundingRect.bottom - dropBoundingRect.top) / 2;
+                const clientOffset = monitor.getClientOffset();
+                if (clientOffset && dropBoundingRect.top + dropMiddleY > clientOffset.y) {
                     dispatch({
                         type: BURGER_CONSTRUCTOR.MOVE,
                         indexFrom: dragIndex,
-                        indexTo: dropIndex + 1
+                        indexTo: dropIndex
                     });
+                } else {
+                    if (dragIndex !== dropIndex + 1) {
+                        dispatch({
+                            type: BURGER_CONSTRUCTOR.MOVE,
+                            indexFrom: dragIndex,
+                            indexTo: dropIndex + 1
+                        });
+                    }
                 }
             }
         },
@@ -82,18 +91,6 @@ function BurgerConstructorElement({element, type, index}) {
             />
         </div>
     );
-}
-
-BurgerConstructorElement.propTypes = {
-    element: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.oneOf(['bun', 'main', 'sauce'])
-    }).isRequired,
-    type: PropTypes.string,
-    index: PropTypes.number
-}
+};
 
 export default BurgerConstructorElement;

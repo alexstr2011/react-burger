@@ -12,7 +12,7 @@ describe('Drag and drop work in burger constructor', function() {
     it('should add bun and increase counter', function() {
         cy.get('[class^=burger-constructor_list]').first().as('constructor');
 
-        cy.get('ul[name="Булки"]').find('[class^=burger-ingredients_link__]').first().as('bun');
+        cy.get('ul[data-name="Булки"]').find('[class^=burger-ingredients_link__]').first().as('bun');
         cy.get('@bun').find('[class^=counter_counter__]').first().as('counter');
 
         cy.get('@counter').contains('0');
@@ -26,8 +26,8 @@ describe('Drag and drop work in burger constructor', function() {
         cy.reload();
         cy.get('[class^=burger-constructor_list]').first().as('constructor');
 
-        cy.get('ul[name="Булки"]').find('[class^=burger-ingredients_link__]').first().as('bun1');
-        cy.get('ul[name="Булки"]').find('[class^=burger-ingredients_link__]').eq(1).as('bun2');
+        cy.get('ul[data-name="Булки"]').find('[class^=burger-ingredients_link__]').first().as('bun1');
+        cy.get('ul[data-name="Булки"]').find('[class^=burger-ingredients_link__]').eq(1).as('bun2');
         cy.get('@bun1').find('[class^=counter_counter__]').first().as('counter1');
         cy.get('@bun2').find('[class^=counter_counter__]').first().as('counter2');
 
@@ -46,7 +46,7 @@ describe('Drag and drop work in burger constructor', function() {
         cy.reload();
         cy.get('[class^=burger-constructor_list]').first().as('constructor');
 
-        cy.get('ul[name="Соусы"]').find('[class^=burger-ingredients_link__]').first().as('sauce');
+        cy.get('ul[data-name="Соусы"]').find('[class^=burger-ingredients_link__]').first().as('sauce');
         cy.get('@sauce').find('[class^=counter_counter__]').first().as('counter');
 
         cy.get('@counter').contains('0');
@@ -60,8 +60,8 @@ describe('Drag and drop work in burger constructor', function() {
         cy.reload();
         cy.get('[class^=burger-constructor_list]').first().as('constructor');
 
-        cy.get('ul[name="Соусы"]').find('[class^=burger-ingredients_link__]').first().as('sauce1');
-        cy.get('ul[name="Соусы"]').find('[class^=burger-ingredients_link__]').eq(1).as('sauce2');
+        cy.get('ul[data-name="Соусы"]').find('[class^=burger-ingredients_link__]').first().as('sauce1');
+        cy.get('ul[data-name="Соусы"]').find('[class^=burger-ingredients_link__]').eq(1).as('sauce2');
         cy.get('@sauce1').find('[class^=counter_counter__]').first().as('counter1');
         cy.get('@sauce2').find('[class^=counter_counter__]').first().as('counter2');
 
@@ -81,7 +81,7 @@ describe('Drag and drop work in burger constructor', function() {
         cy.reload();
         cy.get('[class^=burger-constructor_list]').first().as('constructor');
 
-        cy.get('ul[name="Соусы"]').find('[class^=burger-ingredients_link__]').first().as('sauce');
+        cy.get('ul[data-name="Соусы"]').find('[class^=burger-ingredients_link__]').first().as('sauce');
         cy.get('@sauce').find('[class^=counter_counter__]').first().as('counter');
 
         cy.get('@sauce').trigger('dragstart');

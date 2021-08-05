@@ -1,11 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, {FC} from 'react';
+import { useSelector } from '../../services/types/types';
 import { Link, useLocation } from 'react-router-dom';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerListIngredient from '../burger-list-ingredient/burger-list-ingredient';
 import styles from './burger-ingredients.module.css';
 
-function BurgerIngredients() {
+const BurgerIngredients: FC = () => {
     const {data, ingredientTypes, burgerConstructor} = useSelector(store => ({
         data: store.burgerIngredientsReducer.data,
         ingredientTypes: store.ingredientTypesReducer,
@@ -15,7 +15,7 @@ function BurgerIngredients() {
     const location = useLocation();
 
     const ingredientsAmount = React.useMemo(() => {
-        const result = {};
+        const result: { [key: string]: number } = {};
         if (burgerConstructor.bun) {
             result[burgerConstructor.bun._id] = 2;
         }
@@ -29,13 +29,14 @@ function BurgerIngredients() {
         return result;
     }, [burgerConstructor]);
 
-    const menuRef = React.useRef(null);
-    const headersRef = React.useRef([]);
-    headersRef.current = ingredientTypes.map((_, index) => headersRef.current[index] ?? React.createRef());
+    const menuRef = React.useRef<HTMLElement>(null);
+    const headersRef = React.useRef<Array<{ current: HTMLParagraphElement }>>([]);
+    headersRef.current = ingredientTypes.map((_, index) =>
+        headersRef.current[index] ?? React.createRef<HTMLParagraphElement>());
 
     const [currentType, setCurrentType] = React.useState(ingredientTypes[0].type);
 
-    const clickHandler = (type) => {
+    const clickHandler = (type: string) => {
         setCurrentType(type);
         const index = ingredientTypes.findIndex(ingredientType => ingredientType.type === type);
         if (index !== -1) {
@@ -49,7 +50,7 @@ function BurgerIngredients() {
     }
 
     const scrollHandler = () => {
-        const menuTop = menuRef.current.getBoundingClientRect().top;
+        const menuTop = menuRef.current ? menuRef.current.getBoundingClientRect().top : 0;
 
         const selectedType = ingredientTypes.map((ingredientType, index) => ({
             type: ingredientType.type,
@@ -66,7 +67,7 @@ function BurgerIngredients() {
             <p  ref={headersRef.current[index]} className="text text_type_main-medium">
                 {elementType.name}
             </p>
-            <ul className={styles.ingredientsOfType} name={elementType.name}>
+            <ul className={styles.ingredientsOfType} data-name={elementType.name}>
                 {
                     data.filter(elementIngredient => elementIngredient.type === elementType.type)
                         .map(elementIngredient =>
@@ -110,6 +111,6 @@ function BurgerIngredients() {
             </ul>
         </section>
     );
-}
+};
 
 export default BurgerIngredients ;

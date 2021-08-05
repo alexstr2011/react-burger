@@ -1,5 +1,5 @@
-import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, {FC} from 'react';
+import {useDispatch, useSelector, ICustomLocation} from '../../services/types/types';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import Modal from '../modal/modal';
@@ -13,7 +13,7 @@ import { burgerIngredientsLoad } from '../../services/actions/actions';
 import styles from './app.module.css';
 import OrderInfo from "../order-info/order-info";
 
-function App() {
+const App: FC = () => {
     const dispatch = useDispatch();
     const {isLoading, isError, data} = useSelector(store => store.burgerIngredientsReducer);
     React.useEffect(() => {
@@ -22,7 +22,7 @@ function App() {
     }, [dispatch]);
 
     const history = useHistory();
-    const location = useLocation();
+    const location = useLocation<ICustomLocation>();
     const background = history.action === 'PUSH' && location.state && location.state.background;
     const closeModal = () => {
         history.goBack();
@@ -98,6 +98,6 @@ function App() {
             )}
         </>
     );
-}
+};
 
 export default App;

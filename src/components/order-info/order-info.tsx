@@ -4,7 +4,7 @@ import {TOrder, useDispatch, useSelector} from "../../services/types/types";
 import { useParams,useLocation } from 'react-router-dom';
 import styles from './order-info.module.css';
 import {WS_ALL_ORDERS_ACTION, WS_USER_ORDERS_ACTION} from "../../services/actions/orders-actions";
-import {ORDER_STATUSES} from "../../utils/data";
+import {getStatusDescription} from "../../utils/data";
 import {formatOrderDate} from "../../utils/formatDate";
 import {getCookie} from "../../utils/cookies";
 
@@ -52,9 +52,6 @@ const OrderInfo: FC = () => {
             accum + (ingredient?.price || 0), 0);
     }, [ingredients]);
 
-    const statusDescription: string | undefined =
-        Object.values(ORDER_STATUSES).find(status => order && status === order.status);
-
     return (
         order ? (
             <section className={styles.wrapper}>
@@ -63,7 +60,7 @@ const OrderInfo: FC = () => {
                     {order.name}
                 </p>
                 <p className={"text text_type_main-default mb-15 " + styles.status}>
-                    { statusDescription }
+                    { getStatusDescription(order.status) }
                 </p>
                 <p className="text text_type_main-medium mb-6">
                     Состав:

@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {FC} from 'react';
+import { useSelector, useDispatch } from '../../services/types/types';
 import {useHistory} from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import {CurrencyIcon,Button} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -9,7 +9,7 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import styles from './burger-constructor.module.css';
 
-function BurgerConstructor () {
+const BurgerConstructor: FC = () => {
     const history = useHistory();
     const {data, order, user} = useSelector(store => ({
         data: store.burgerConstructorReducer,
@@ -106,6 +106,6 @@ function BurgerConstructor () {
             </Modal>}
         </section>
     );
-}
+};
 
 export default BurgerConstructor;

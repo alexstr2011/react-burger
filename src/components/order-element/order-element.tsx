@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {ORDER_STATUSES} from "../../utils/data";
-import {useSelector} from "react-redux";
-import PropTypes from 'prop-types';
+import {getStatusDescription} from "../../utils/data";
+import {TOrder} from "../../services/types/types";
+import {useSelector} from "../../services/types/types";
 import styles from './order-element.module.css';
 import {formatOrderDate} from "../../utils/formatDate";
 
-function OrderElement({data, isHistory = false}) {
+interface IOrderElementProps {
+    data: TOrder;
+    isHistory?: boolean;
+}
+
+const OrderElement: FC<IOrderElementProps> = ({data, isHistory = false}) => {
     const allIngredients = useSelector(store => store.burgerIngredientsReducer.data);
 
     const ingredients = React.useMemo(()=>{
@@ -17,7 +22,8 @@ function OrderElement({data, isHistory = false}) {
     }, [data.ingredients, allIngredients]);
 
     const sum = React.useMemo(()=>{
-        return ingredients.reduce((accum, ingredient) => accum + ingredient.price, 0);
+        return ingredients.reduce((accum, ingredient) =>
+            accum + (ingredient?.price || 0), 0);
     }, [ingredients]);
 
     const showIngredients = ingredients.filter((_,index) => index <= 5);
@@ -38,24 +44,24 @@ function OrderElement({data, isHistory = false}) {
                 {data.name}
             </p>
             <p className={"text text_type_main-default mb-6 " + styles.readyOrder}>
-                {ORDER_STATUSES[data.status]}
+                { getStatusDescription(data.status) }
             </p>
             <div className={styles.row + ' ' + styles.rowFar}>
                 <ul className={styles.picturesList + ' ' + styles.row}>
-                    {showIngredients && showIngredients.map((ingredient,index) => {
+                    {showIngredients && showIngredients.map((ingredient, index) => {
                         const isShowHidden = !!hiddenIngredients && index === 0;
-
-                        return (
-                            <li key={ingredient._id + index} className={styles.pictureContainer}>
-                                <img src={ingredient.image} alt={ingredient.name} className={styles.picture} />
-                                {isShowHidden && (
-                                    <p className={"text text_type_main-default " + styles.hiddenIngredients}>
-                                        {`+${hiddenIngredients}`}
-                                    </p>
-                                )}
-                            </li>
-                        )
-                    }
+                        return ingredient &&
+                            (
+                                <li key={ingredient._id + index} className={styles.pictureContainer}>
+                                    <img src={ingredient.image} alt={ingredient.name} className={styles.picture}/>
+                                    {isShowHidden && (
+                                        <p className={"text text_type_main-default " + styles.hiddenIngredients}>
+                                            {`+${hiddenIngredients}`}
+                                        </p>
+                                    )}
+                                </li>
+                            )
+                        }
                     )}
                 </ul>
                 <div className={styles.row}>
@@ -67,18 +73,6 @@ function OrderElement({data, isHistory = false}) {
             </div>
         </section>
     );
-}
+};
 
-/*
-OrderElement.propTypes = {
-    data: PropTypes.shape({
-        ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-        createdAt: PropTypes.string.isRequired,
-        number: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        status: PropTypes.string.isRequired
-    }).isRequired,
-    isHistory: PropTypes.bool
-}
-*/
 export default OrderElement;

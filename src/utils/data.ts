@@ -4,6 +4,10 @@ export enum ORDER_STATUSES {
     pending = 'Готовится'
 }
 
+export const getStatusDescription = (key: string): string | undefined => {
+    return Object.values(ORDER_STATUSES).find(status => status === key);
+};
+
 /*
 const data = [
     {

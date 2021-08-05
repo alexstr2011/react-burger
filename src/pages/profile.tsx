@@ -22,7 +22,7 @@ const ProfilePage: FC = () => {
 
     const dispatch = useDispatch();
 
-    const updateHandler = (e: React.ChangeEvent<HTMLFormElement>) => {
+    const updateHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(updateUser(email, password, name));
     };
