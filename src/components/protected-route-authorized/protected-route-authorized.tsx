@@ -22,13 +22,9 @@ export const ProtectedRouteAuthorized: FC<IProtectedRouteAuthorizedProps> =
             render={
                 ({location}) => {
                     const state = location.state as ICustomState;
+                    const to = (isLogin && state && state.from) ? state.from : '/';
 
-                    let to = '/';
-                    if (isLogin && state && state.from) {
-                        to = state.from;
-                    }
-
-                    return user && user.name || isToken ? (
+                    return (user && user.name) || isToken ? (
                         <Redirect to={to} />
                     ) : (
                         children

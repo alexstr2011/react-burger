@@ -16,14 +16,14 @@ const OrderInfo: FC = () => {
 
     const isFeed = location.pathname.includes('/feed');
 
-    let allOrdersReducer = useSelector(store => store.allOrdersReducer);
+    const allOrdersReducer = useSelector(store => store.allOrdersReducer);
     if (isFeed && allOrdersReducer && !allOrdersReducer.wsConnected) {
         dispatch({
             type: WS_ALL_ORDERS_ACTION.CONNECTION_START
         });
     }
 
-    let userOrdersReducer = useSelector(store => store.userOrdersReducer);
+    const userOrdersReducer = useSelector(store => store.userOrdersReducer);
     if (!isFeed && userOrdersReducer && !userOrdersReducer.wsConnected ) {
         dispatch({
             type: WS_USER_ORDERS_ACTION.CONNECTION_START,

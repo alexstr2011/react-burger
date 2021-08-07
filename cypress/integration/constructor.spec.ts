@@ -10,7 +10,7 @@ describe('Drag and drop work in burger constructor', function() {
     });
 
     it('should add bun and increase counter', function() {
-        cy.get('[class^=burger-constructor_list]').first().as('constructor');
+        cy.get('[class^=burger-constructor_list]', {timeout: 20000}).first().as('constructor');
 
         cy.get('ul[data-name="Булки"]').find('[class^=burger-ingredients_link__]').first().as('bun');
         cy.get('@bun').find('[class^=counter_counter__]').first().as('counter');

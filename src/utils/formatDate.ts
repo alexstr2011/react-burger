@@ -1,5 +1,5 @@
 export function formatOrderDate(orderDatePresentation: string): string {
-    let orderDate: Date = new Date(orderDatePresentation);
+    const orderDate: Date = new Date(orderDatePresentation);
     const dateFormatted: string = new Intl.DateTimeFormat('ru-ru',{
         timeZoneName: 'short',
         hour: '2-digit',
